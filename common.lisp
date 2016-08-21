@@ -57,7 +57,7 @@ If OBJECT is an empty sequence, value is true, too."
   "Sequence of valid decimal point characters.")
 (declaim (type sequence-of-characters *default-decimal-point*))
 
-(defvar *default-exponent-marker* "EeDd"
+(defvar *default-exponent-marker* "EeDd" ;f-language
   "Sequence of valid exponent marker characters.")
 (declaim (type sequence-of-characters *default-exponent-marker*))
 

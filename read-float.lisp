@@ -78,7 +78,7 @@ Keyword argument DECIMAL-POINT is a sequence of valid decimal point
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
  mantissa from the exponent.  It does not specify the data type of
- the return value.  The default is ‘E’ and ‘e’.
+ the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
 Keyword argument FLOAT-FORMAT specifies the data type of the return
  value.  The default is ‘*read-default-float-format*’.
 
