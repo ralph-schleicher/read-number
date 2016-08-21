@@ -36,7 +36,7 @@
 (in-package :common-lisp-user)
 
 (defpackage :read-number
-  (:use :common-lisp :iterate)
+  (:use :common-lisp)
   (:documentation
    "Definitions for reading numbers from an input stream."))
 
