@@ -6,14 +6,14 @@ Reading numbers from an input stream without using the Lisp reader.
 ## Functions
 
 
-`read-integer` (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _radix_)
+**read-integer** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _radix_)
 
-> Read an integer from an input stream.
+Read an integer from an input stream.
 
 
-`read-float` (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _decimal-point_ _exponent-marker_ _float-format_)
+**read-float** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _decimal-point_ _exponent-marker_ _float-format_)
 
-> Read a floating-point number from an input stream.
+Read a floating-point number from an input stream.
 
 
 ## Features
