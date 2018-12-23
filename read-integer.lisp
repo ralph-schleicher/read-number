@@ -75,7 +75,8 @@ Keyword argument RADIX is a radix.  Value has to be an integer between
  the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
  greater than 10.
 
-Return value is an integer.
+Return value is an integer.  Secondary value is the number of
+characters read.
 
 The ‘read-integer’ function expects an optional sign followed by a
 non-empty sequence of digits in the specified radix.  It does not

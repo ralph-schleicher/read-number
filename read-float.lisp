@@ -84,7 +84,7 @@ Keyword argument FLOAT-FORMAT specifies the data type of the return
 
 Return value is a floating-point number of type FLOAT-FORMAT iff a
 decimal point or exponent part is present.  Otherwise, value is an
-integer.
+integer.  Secondary value is the number of characters read.
 
 The ‘read-float’ function expects an optional sign followed by a
 non-empty sequence of decimal digits.  It does recognize a decimal
