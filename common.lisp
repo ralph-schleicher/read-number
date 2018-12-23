@@ -101,8 +101,8 @@ Return value is the weight of CHAR as an integer, or nil."
 		     ;; ends in the middle of an object.
 		     (when (or (> length 0) ,eof-error-p)
 		       (error 'end-of-file :stream ,input-stream))
-		     (return ,eof-value))
-		   (return ,result))
+		     (return (values ,eof-value length)))
+		   (return (values ,result length)))
 		 (read-integer (&optional (radix 10))
 		   "Read an integral number."
 		   (check-type radix (integer 2 36))
