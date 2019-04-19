@@ -36,25 +36,15 @@
 (in-package :common-lisp-user)
 
 (quicklisp:quickload :read-number)
-(quicklisp:quickload :cldoc)
+(quicklisp:quickload :rs-doc) ;private
 
-(in-package :cludg)
-
-(defun rs-format-doc (symbol-descriptor driver strings)
-  (with-tag (:pre ())
-    (html-write "~{~A~^~%~}" strings)))
-
-(ensure-directories-exist
- (make-pathname :directory '(:relative "doc")))
-
-(cldoc:extract-documentation
- 'cldoc:html "doc"
- (asdf:find-system :read-number)
- :table-of-contents-title "Reading Numbers from an Input Stream"
- :copy-css-into-output-dir t
- :charset "UTF-8"
- :doc-formater #'rs-format-doc
- :filter #'default-filter
- :sort-predicate (constantly nil))
+(rs-doc:generate-doc
+ :package :read-number
+ :symbols '(read-number:read-integer
+	    read-number:read-float)
+ :output-format :html
+ :output (make-pathname :directory '(:relative "doc")
+			:name "read-number"
+			:type "html"))
 
 ;;; generate-doc.lisp ends here
