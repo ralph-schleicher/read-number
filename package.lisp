@@ -38,6 +38,10 @@
 (defpackage :read-number
   (:use :common-lisp)
   (:documentation
-   "Definitions for reading numbers from an input stream."))
+   "Reading numbers from an input stream without using the Lisp reader.
+
+The ‘read-integer’ and ‘read-float’ functions are designed to read
+external number representations.  The ‘read-number’ function (to be
+defined) is reserved for reading any Lisp number representation."))
 
 ;;; package.lisp ends here
