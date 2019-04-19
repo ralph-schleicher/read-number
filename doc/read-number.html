@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>READ-NUMBER</title>
+  <style type="text/css">
+   *{margin:0;border:0;padding:0}
+   body{color:#000;background-color:#fff;font-family:sans-serif;padding:1em;min-width:46em}
+   a{color:inherit;background-color:transparent;text-decoration:none}
+   table{border-collapse:collapse}
+   div.title{padding:1em}
+   div.subtitle{padding:1em}
+   div.prologue{padding:1em}
+   div.epilogue{padding:1em}
+   span.category{color:#212121;font-style:italic}
+   span.symbol{color:#212121;font-weight:700}
+   span.lambda-list{color:#616161}
+   span.lambda-list-keyword{color:#388E3C}
+   span.parameter{color:#212121;font-style:italic}
+   span.method-specializers{color:#616161}
+   span.method-specializer{color:#212121}
+   div.contents{padding:1em}
+   div.contents-listing{padding:1em}
+   div.contents-listing ul{list-style-type:none}
+   @media all and (min-width:68em){div.contents-listing{column-count:2;column-gap:2em}}
+   div.definition{padding:1em}
+   div.signature{background-color:#F5F5F5;padding:1ex 1em}
+   table.signature td.symbol{text-align:left;vertical-align:baseline;white-space:nowrap;padding-right:.5em}
+   table.signature td.lambda-list{text-align:left;vertical-align:baseline;width:100%}
+   table.signature td.category{text-align:right;vertical-align:baseline;white-space:nowrap;padding-left:1.5em}
+   div.documentation{padding:1em}
+  </style>
+ </head>
+ <body>
+  
+  <div class="title">
+   <h1>READ-NUMBER</h1>
+  </div>
+  
+
+  
+
+  
+  <div class="prologue">
+   <pre>Reading numbers from an input stream without using the Lisp reader.
+
+The &#x2018;read-integer&#x2019; and &#x2018;read-float&#x2019; functions are designed to read
+external number representations.  The &#x2018;read-number&#x2019; function (to be
+defined) is reserved for reading any Lisp number representation.</pre>
+  </div>
+  
+
+  
+  <div class="contents" id="contents">
+   <h2>Contents</h2>
+   <div class="contents-listing">
+    <ul>
+     
+     <li>
+      <a href="#_D023C279-5ABD-5684-A4EE-C2EAD05B05BB">
+       <span class="category">Function</span>
+       <span class="symbol">read-integer</span>
+       
+      </a>
+     </li>
+     
+     <li>
+      <a href="#_38BE1DB9-08E5-5FB9-9DF5-975460517EE6">
+       <span class="category">Function</span>
+       <span class="symbol">read-float</span>
+       
+      </a>
+     </li>
+     
+    </ul>
+   </div>
+  </div>
+  
+
+  
+  <div class="dictionary">
+   
+   <div class="definition" id="_D023C279-5ABD-5684-A4EE-C2EAD05B05BB">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">read-integer</span></a></td>
+	<td class="lambda-list"><span class="lambda-list">(<span class='lambda-list-keyword'>&amp;optional</span> (<span class='parameter'>input-stream</span> *standard-input*) (<span class='parameter'>eof-error-p</span> t) <span class='parameter'>eof-value</span> <span class='parameter'>recursive-p</span> <span class='lambda-list-keyword'>&amp;key</span> <span class='parameter'>unsigned-number</span> (<span class='parameter'>plus-sign</span> *default-plus-sign*) (<span class='parameter'>minus-sign</span> *default-minus-sign*) (<span class='parameter'>radix</span> 10))</span></td>
+	<td class="category"><span class="category">Function</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Read an integer from an input stream.
+
+Optional first argument INPUT-STREAM is an input stream designator.
+ The default is standard input.
+Optional second argument EOF-ERROR-P is a generalized boolean.
+ If an end of file error occurs and EOF-ERROR-P is false, EOF-VALUE
+ is returned.  Otherwise, signal an &#x2018;end-of-file&#x2019; error.  The default
+ is true.
+Optional third argument EOF-VALUE is an object.  See above for more
+ details.  The default is nil.
+Optional fourth argument RECURSIVE-P is a generalized boolean.  True
+ means that this call is expected to be embedded in a higher-level
+ call to &#x2018;read&#x2019; or a similar function used by the Lisp reader.  The
+ default is false.
+Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
+ to read an unsigned positive number.  If UNSIGNED-NUMBER is &#x2018;:plus&#x2019;,
+ an explicit plus sign character signals a &#x2018;parse-error&#x2019; but negative
+ numbers are permitted.  The default is false.
+Keyword argument PLUS-SIGN is a sequence of valid plus sign
+ characters.  The plus sign is used to denote a positive number.
+ The default is &#x2018;+&#x2019;.
+Keyword argument MINUS-SIGN is a sequence of valid minus sign
+ characters.  The minus sign is used to denote a negative number.
+ The default is &#x2018;-&#x2019;.
+Keyword argument RADIX is a radix.  Value has to be an integer between
+ 2 and 36, inclusive.  The default is 10.  Case is not significant for
+ the digit characters &#x2018;A&#x2019; to &#x2018;Z&#x2019; when parsing numbers with a radix
+ greater than 10.
+
+Return value is an integer.  Secondary value is the number of
+characters read.
+
+The &#x2018;read-integer&#x2019; function expects an optional sign followed by a
+non-empty sequence of digits in the specified radix.  It does not
+recognize a decimal point or exponent marker.  Leading or trailing
+whitespace is not ignored.
+
+If the file ends in the middle of an integer representation,
+&#x2018;read-integer&#x2019; signals an &#x2018;end-of-file&#x2019; error regardsless of
+the value of the EOF-ERROR-P argument.
+
+The result if undefined if the sequences of valid plus and minus
+sign characters intersect.</pre>
+    </div>
+   </div>
+   
+   <div class="definition" id="_38BE1DB9-08E5-5FB9-9DF5-975460517EE6">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">read-float</span></a></td>
+	<td class="lambda-list"><span class="lambda-list">(<span class='lambda-list-keyword'>&amp;optional</span> (<span class='parameter'>input-stream</span> *standard-input*) (<span class='parameter'>eof-error-p</span> t) <span class='parameter'>eof-value</span> <span class='parameter'>recursive-p</span> <span class='lambda-list-keyword'>&amp;key</span> <span class='parameter'>unsigned-number</span> (<span class='parameter'>plus-sign</span> *default-plus-sign*) (<span class='parameter'>minus-sign</span> *default-minus-sign*) (<span class='parameter'>decimal-point</span> *default-decimal-point*) (<span class='parameter'>exponent-marker</span> *default-exponent-marker*) (<span class='parameter'>float-format</span> *read-default-float-format*))</span></td>
+	<td class="category"><span class="category">Function</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Read a floating-point number from an input stream.
+
+Optional first argument INPUT-STREAM is an input stream designator.
+ The default is standard input.
+Optional second argument EOF-ERROR-P is a generalized boolean.
+ If an end of file error occurs and EOF-ERROR-P is false, EOF-VALUE
+ is returned.  Otherwise, signal an &#x2018;end-of-file&#x2019; error.  The default
+ is true.
+Optional third argument EOF-VALUE is an object.  See above for more
+ details.  The default is nil.
+Optional fourth argument RECURSIVE-P is a generalized boolean.  True
+ means that this call is expected to be embedded in a higher-level
+ call to &#x2018;read&#x2019; or a similar function used by the Lisp reader.  The
+ default is false.
+Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
+ to read an unsigned positive number.  If UNSIGNED-NUMBER is &#x2018;:plus&#x2019;,
+ an explicit plus sign character signals a &#x2018;parse-error&#x2019; but negative
+ numbers are permitted.  The default is false.
+Keyword argument PLUS-SIGN is a sequence of valid plus sign
+ characters.  The plus sign is used to denote a positive number.
+ The default is &#x2018;+&#x2019;.
+Keyword argument MINUS-SIGN is a sequence of valid minus sign
+ characters.  The minus sign is used to denote a negative number.
+ The default is &#x2018;-&#x2019;.
+Keyword argument DECIMAL-POINT is a sequence of valid decimal point
+ characters.  The decimal point is used to separate the integer part
+ of a decimal number from its fractional part.  The default is &#x2018;.&#x2019;.
+Keyword argument EXPONENT-MARKER is a sequence of valid exponent
+ marker characters.  The exponent marker is used to separate the
+ mantissa from the exponent.  It does not specify the data type of
+ the return value.  The default is &#x2018;E&#x2019;, &#x2018;e&#x2019;, &#x2018;D&#x2019;, and &#x2018;d&#x2019;.
+Keyword argument FLOAT-FORMAT specifies the data type of the return
+ value.  The default is &#x2018;*read-default-float-format*&#x2019;.
+
+Return value is a floating-point number of type FLOAT-FORMAT iff a
+decimal point or exponent part is present.  Otherwise, value is an
+integer.  Secondary value is the number of characters read.
+
+The &#x2018;read-float&#x2019; function expects an optional sign followed by a
+non-empty sequence of decimal digits.  It does recognize a decimal
+point and an exponent part.  Leading or trailing whitespace is not
+ignored.
+
+If the file ends in the middle of a floating-point number
+representation, &#x2018;read-float&#x2019; signals an &#x2018;end-of-file&#x2019; error
+regardsless of the value of the EOF-ERROR-P argument.
+
+Converting a floating-point number to the specified FLOAT-FORMAT
+type may signal an &#x2018;arithmetic-error&#x2019; condition, for example, a
+&#x2018;floating-point-overflow&#x2019; or &#x2018;floating-point-underflow&#x2019; error.
+
+The result if undefined if the sequences of valid plus and minus
+sign characters intersect.</pre>
+    </div>
+   </div>
+   
+  </div>
+  
+
+  
+ </body>
+</html>
