@@ -84,7 +84,7 @@ recognize a decimal point or exponent marker.  Leading or trailing
 whitespace is not ignored.
 
 If the file ends in the middle of an integer representation,
-‘read-integer’ signals an ‘end-of-file’ error regardsless of
+‘read-integer’ signals an ‘end-of-file’ error regardless of
 the value of the EOF-ERROR-P argument.
 
 The result if undefined if the sequences of valid plus and minus
