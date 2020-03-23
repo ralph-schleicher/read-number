@@ -14,12 +14,15 @@
    div.prologue{padding:1em}
    div.epilogue{padding:1em}
    span.category{color:#212121;font-style:italic}
-   span.symbol{color:#212121;font-weight:700}
+   span.package,span.symbol{color:#212121;font-weight:700;white-space:nowrap}
    span.lambda-list{color:#616161}
-   span.lambda-list-keyword{color:#388E3C}
-   span.parameter{color:#212121;font-style:italic}
+   span.lambda-list-keyword{color:#388E3C;white-space:nowrap}
+   span.keyword{color:#212121;white-space:nowrap}
+   span.variable{color:#212121;font-style:italic;white-space:nowrap}
+   span.init-form{white-space:nowrap}
    span.method-specializers{color:#616161}
-   span.method-specializer{color:#212121}
+   span.method-specializer{color:#212121;white-space:nowrap}
+   span.method-qualifier{color:#212121;white-space:nowrap}
    div.contents{padding:1em}
    div.contents-listing{padding:1em}
    div.contents-listing ul{list-style-type:none}
@@ -33,55 +36,37 @@
   </style>
  </head>
  <body>
-  
   <div class="title">
    <h1>READ-NUMBER</h1>
   </div>
-  
-
-  
-
-  
   <div class="prologue">
    <pre>Reading numbers from an input stream without using the Lisp reader.
 
-The &#x2018;read-integer&#x2019; and &#x2018;read-float&#x2019; functions are designed to read
-external number representations.  The &#x2018;read-number&#x2019; function (to be
+The ‘read-integer’ and ‘read-float’ functions are designed to read
+external number representations.  The ‘read-number’ function (to be
 defined) is reserved for reading any Lisp number representation.</pre>
   </div>
-  
-
-  
   <div class="contents" id="contents">
    <h2>Contents</h2>
    <div class="contents-listing">
     <ul>
-     
      <li>
-      <a href="#_D023C279-5ABD-5684-A4EE-C2EAD05B05BB">
+      <a href="#_d023c279-5abd-5684-a4ee-c2ead05b05bb">
        <span class="category">Function</span>
        <span class="symbol">read-integer</span>
-       
       </a>
      </li>
-     
      <li>
-      <a href="#_38BE1DB9-08E5-5FB9-9DF5-975460517EE6">
+      <a href="#_38be1db9-08e5-5fb9-9df5-975460517ee6">
        <span class="category">Function</span>
        <span class="symbol">read-float</span>
-       
       </a>
      </li>
-     
     </ul>
    </div>
   </div>
-  
-
-  
   <div class="dictionary">
-   
-   <div class="definition" id="_D023C279-5ABD-5684-A4EE-C2EAD05B05BB">
+   <div class="definition" id="_d023c279-5abd-5684-a4ee-c2ead05b05bb">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -92,7 +77,7 @@ defined) is reserved for reading any Lisp number representation.</pre>
       <tbody>
        <tr>
 	<td class="symbol"><a href="#contents"><span class="symbol">read-integer</span></a></td>
-	<td class="lambda-list"><span class="lambda-list">(<span class='lambda-list-keyword'>&amp;optional</span> (<span class='parameter'>input-stream</span> *standard-input*) (<span class='parameter'>eof-error-p</span> t) <span class='parameter'>eof-value</span> <span class='parameter'>recursive-p</span> <span class='lambda-list-keyword'>&amp;key</span> <span class='parameter'>unsigned-number</span> (<span class='parameter'>plus-sign</span> *default-plus-sign*) (<span class='parameter'>minus-sign</span> *default-minus-sign*) (<span class='parameter'>radix</span> 10))</span></td>
+	<td class="lambda-list"><span class="lambda-list">(<span class="lambda-list-keyword">&amp;optional</span> (<span class="variable">input-stream</span>&nbsp;<span class="init-form">*standard-input*</span>) (<span class="variable">eof-error-p</span>&nbsp;<span class="init-form">t</span>) <span class="variable">eof-value</span> <span class="variable">recursive-p</span> <span class="lambda-list-keyword">&amp;key</span> <span class="variable">unsigned-number</span> (<span class="variable">plus-sign</span>&nbsp;<span class="init-form">*default-plus-sign*</span>) (<span class="variable">minus-sign</span>&nbsp;<span class="init-form">*default-minus-sign*</span>) (<span class="variable">radix</span>&nbsp;<span class="init-form">10</span>))</span></td>
 	<td class="category"><span class="category">Function</span></td>
        </tr>
       </tbody>
@@ -105,47 +90,46 @@ Optional first argument INPUT-STREAM is an input stream designator.
  The default is standard input.
 Optional second argument EOF-ERROR-P is a generalized boolean.
  If an end of file error occurs and EOF-ERROR-P is false, EOF-VALUE
- is returned.  Otherwise, signal an &#x2018;end-of-file&#x2019; error.  The default
+ is returned.  Otherwise, signal an ‘end-of-file’ error.  The default
  is true.
 Optional third argument EOF-VALUE is an object.  See above for more
  details.  The default is nil.
 Optional fourth argument RECURSIVE-P is a generalized boolean.  True
  means that this call is expected to be embedded in a higher-level
- call to &#x2018;read&#x2019; or a similar function used by the Lisp reader.  The
+ call to ‘read’ or a similar function used by the Lisp reader.  The
  default is false.
 Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
- to read an unsigned positive number.  If UNSIGNED-NUMBER is &#x2018;:plus&#x2019;,
- an explicit plus sign character signals a &#x2018;parse-error&#x2019; but negative
+ to read an unsigned positive number.  If UNSIGNED-NUMBER is ‘:plus’,
+ an explicit plus sign character signals a ‘parse-error’ but negative
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is &#x2018;+&#x2019;.
+ The default is ‘+’.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is &#x2018;-&#x2019;.
+ The default is ‘-’.
 Keyword argument RADIX is a radix.  Value has to be an integer between
  2 and 36, inclusive.  The default is 10.  Case is not significant for
- the digit characters &#x2018;A&#x2019; to &#x2018;Z&#x2019; when parsing numbers with a radix
+ the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
  greater than 10.
 
 Return value is an integer.  Secondary value is the number of
 characters read.
 
-The &#x2018;read-integer&#x2019; function expects an optional sign followed by a
+The ‘read-integer’ function expects an optional sign followed by a
 non-empty sequence of digits in the specified radix.  It does not
 recognize a decimal point or exponent marker.  Leading or trailing
 whitespace is not ignored.
 
 If the file ends in the middle of an integer representation,
-&#x2018;read-integer&#x2019; signals an &#x2018;end-of-file&#x2019; error regardsless of
+‘read-integer’ signals an ‘end-of-file’ error regardless of
 the value of the EOF-ERROR-P argument.
 
 The result if undefined if the sequences of valid plus and minus
 sign characters intersect.</pre>
     </div>
    </div>
-   
-   <div class="definition" id="_38BE1DB9-08E5-5FB9-9DF5-975460517EE6">
+   <div class="definition" id="_38be1db9-08e5-5fb9-9df5-975460517ee6">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -156,7 +140,7 @@ sign characters intersect.</pre>
       <tbody>
        <tr>
 	<td class="symbol"><a href="#contents"><span class="symbol">read-float</span></a></td>
-	<td class="lambda-list"><span class="lambda-list">(<span class='lambda-list-keyword'>&amp;optional</span> (<span class='parameter'>input-stream</span> *standard-input*) (<span class='parameter'>eof-error-p</span> t) <span class='parameter'>eof-value</span> <span class='parameter'>recursive-p</span> <span class='lambda-list-keyword'>&amp;key</span> <span class='parameter'>unsigned-number</span> (<span class='parameter'>plus-sign</span> *default-plus-sign*) (<span class='parameter'>minus-sign</span> *default-minus-sign*) (<span class='parameter'>decimal-point</span> *default-decimal-point*) (<span class='parameter'>exponent-marker</span> *default-exponent-marker*) (<span class='parameter'>float-format</span> *read-default-float-format*))</span></td>
+	<td class="lambda-list"><span class="lambda-list">(<span class="lambda-list-keyword">&amp;optional</span> (<span class="variable">input-stream</span>&nbsp;<span class="init-form">*standard-input*</span>) (<span class="variable">eof-error-p</span>&nbsp;<span class="init-form">t</span>) <span class="variable">eof-value</span> <span class="variable">recursive-p</span> <span class="lambda-list-keyword">&amp;key</span> <span class="variable">unsigned-number</span> (<span class="variable">plus-sign</span>&nbsp;<span class="init-form">*default-plus-sign*</span>) (<span class="variable">minus-sign</span>&nbsp;<span class="init-form">*default-minus-sign*</span>) (<span class="variable">decimal-point</span>&nbsp;<span class="init-form">*default-decimal-point*</span>) (<span class="variable">exponent-marker</span>&nbsp;<span class="init-form">*default-exponent-marker*</span>) (<span class="variable">float-format</span>&nbsp;<span class="init-form">*read-default-float-format*</span>) (<span class="variable">significand-radix</span>&nbsp;<span class="init-form">10</span>) (<span class="variable">exponent-radix</span>&nbsp;<span class="init-form">10</span>) (<span class="variable">exponent-base</span>&nbsp;<span class="init-form">10</span>))</span></td>
 	<td class="category"><span class="category">Function</span></td>
        </tr>
       </tbody>
@@ -169,59 +153,61 @@ Optional first argument INPUT-STREAM is an input stream designator.
  The default is standard input.
 Optional second argument EOF-ERROR-P is a generalized boolean.
  If an end of file error occurs and EOF-ERROR-P is false, EOF-VALUE
- is returned.  Otherwise, signal an &#x2018;end-of-file&#x2019; error.  The default
+ is returned.  Otherwise, signal an ‘end-of-file’ error.  The default
  is true.
 Optional third argument EOF-VALUE is an object.  See above for more
  details.  The default is nil.
 Optional fourth argument RECURSIVE-P is a generalized boolean.  True
  means that this call is expected to be embedded in a higher-level
- call to &#x2018;read&#x2019; or a similar function used by the Lisp reader.  The
+ call to ‘read’ or a similar function used by the Lisp reader.  The
  default is false.
 Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
- to read an unsigned positive number.  If UNSIGNED-NUMBER is &#x2018;:plus&#x2019;,
- an explicit plus sign character signals a &#x2018;parse-error&#x2019; but negative
+ to read an unsigned positive number.  If UNSIGNED-NUMBER is ‘:plus’,
+ an explicit plus sign character signals a ‘parse-error’ but negative
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is &#x2018;+&#x2019;.
+ The default is ‘+’.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is &#x2018;-&#x2019;.
+ The default is ‘-’.
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
- of a decimal number from its fractional part.  The default is &#x2018;.&#x2019;.
+ of the significand from its fractional part.  The default is ‘.’.
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
- mantissa from the exponent.  It does not specify the data type of
- the return value.  The default is &#x2018;E&#x2019;, &#x2018;e&#x2019;, &#x2018;D&#x2019;, and &#x2018;d&#x2019;.
+ significand from the exponent.  It does not specify the data type
+ of the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
 Keyword argument FLOAT-FORMAT specifies the data type of the return
- value.  The default is &#x2018;*read-default-float-format*&#x2019;.
+ value.  The default is ‘*read-default-float-format*’.
+Keyword argument SIGNIFICAND-RADIX and EXPONENT-RADIX is the radix
+ for the digits of the significand and exponent respectively.  Value
+ has to be an integer between 2 and 36, inclusive.  The default is 10.
+ Case is not significant for the digit characters ‘A’ to ‘Z’ when
+ parsing numbers with a radix greater than 10.
+Keyword argument EXPONENT-BASE is the base of the power term.  Value
+ has to be an integer greater than or equal to 2.  The default is 10.
 
 Return value is a floating-point number of type FLOAT-FORMAT iff a
 decimal point or exponent part is present.  Otherwise, value is an
 integer.  Secondary value is the number of characters read.
 
-The &#x2018;read-float&#x2019; function expects an optional sign followed by a
-non-empty sequence of decimal digits.  It does recognize a decimal
-point and an exponent part.  Leading or trailing whitespace is not
-ignored.
+The ‘read-float’ function expects an optional sign followed by a
+non-empty sequence of digits.  It does recognize a decimal point and
+an exponent part.  Leading or trailing whitespace is not ignored.
 
 If the file ends in the middle of a floating-point number
-representation, &#x2018;read-float&#x2019; signals an &#x2018;end-of-file&#x2019; error
-regardsless of the value of the EOF-ERROR-P argument.
+representation, ‘read-float’ signals an ‘end-of-file’ error
+regardless of the value of the EOF-ERROR-P argument.
 
 Converting a floating-point number to the specified FLOAT-FORMAT
-type may signal an &#x2018;arithmetic-error&#x2019; condition, for example, a
-&#x2018;floating-point-overflow&#x2019; or &#x2018;floating-point-underflow&#x2019; error.
+type may signal an ‘arithmetic-error’ condition, for example, a
+‘floating-point-overflow’ or ‘floating-point-underflow’ error.
 
 The result if undefined if the sequences of valid plus and minus
 sign characters intersect.</pre>
     </div>
    </div>
-   
   </div>
-  
-
-  
  </body>
 </html>
