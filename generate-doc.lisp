@@ -38,13 +38,22 @@
 (quicklisp:quickload :read-number)
 (quicklisp:quickload :rs-doc) ;private
 
-(rs-doc:generate-doc
- :package :read-number
- :symbols '(read-number:read-integer
-	    read-number:read-float)
- :output-format :html
- :output (make-pathname :directory '(:relative "doc")
-			:name "read-number"
-			:type "html"))
+(let ((symbols '(read-number:read-integer
+		 read-number:read-float)))
+  (rs-doc:generate-doc
+   :package :read-number
+   :symbols symbols 
+   :output-format :html
+   :output (make-pathname :directory '(:relative "doc")
+			  :name "read-number"
+			  :type "html"))
+  (rs-doc:generate-doc
+   :package :read-number
+   :symbols symbols
+   :output-format :text
+   :output (make-pathname :directory '(:relative "doc")
+			  :name "read-number"
+			  :type "txt"))
+  (values))
 
 ;;; generate-doc.lisp ends here
