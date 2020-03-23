@@ -39,7 +39,7 @@
   :description "Reading numbers from an input stream."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20190419.1825"
+  :version "20200323.0459"
   :depends-on (:alexandria :lisp-unit)
   :serial t
   :components ((:file "package")
