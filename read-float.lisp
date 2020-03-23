@@ -47,7 +47,10 @@
 		     (minus-sign *default-minus-sign*)
 		     (decimal-point *default-decimal-point*)
 		     (exponent-marker *default-exponent-marker*)
-		     (float-format *read-default-float-format*))
+		     (float-format *read-default-float-format*)
+		     (significand-radix 10)
+		     (exponent-radix 10)
+		     (exponent-base 10))
   "Read a floating-point number from an input stream.
 
 Optional first argument INPUT-STREAM is an input stream designator.
@@ -74,26 +77,32 @@ Keyword argument MINUS-SIGN is a sequence of valid minus sign
  The default is ‘-’.
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
- of a decimal number from its fractional part.  The default is ‘.’.
+ of the significand from its fractional part.  The default is ‘.’.
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
- mantissa from the exponent.  It does not specify the data type of
- the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
+ significand from the exponent.  It does not specify the data type
+ of the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
 Keyword argument FLOAT-FORMAT specifies the data type of the return
  value.  The default is ‘*read-default-float-format*’.
+Keyword argument SIGNIFICAND-RADIX and EXPONENT-RADIX is the radix
+ for the digits of the significand and exponent respectively.  Value
+ has to be an integer between 2 and 36, inclusive.  The default is 10.
+ Case is not significant for the digit characters ‘A’ to ‘Z’ when
+ parsing numbers with a radix greater than 10.
+Keyword argument EXPONENT-BASE is the base of the power term.  Value
+ has to be an integer greater than or equal to 2.  The default is 10.
 
 Return value is a floating-point number of type FLOAT-FORMAT iff a
 decimal point or exponent part is present.  Otherwise, value is an
 integer.  Secondary value is the number of characters read.
 
 The ‘read-float’ function expects an optional sign followed by a
-non-empty sequence of decimal digits.  It does recognize a decimal
-point and an exponent part.  Leading or trailing whitespace is not
-ignored.
+non-empty sequence of digits.  It does recognize a decimal point and
+an exponent part.  Leading or trailing whitespace is not ignored.
 
 If the file ends in the middle of a floating-point number
 representation, ‘read-float’ signals an ‘end-of-file’ error
-regardsless of the value of the EOF-ERROR-P argument.
+regardless of the value of the EOF-ERROR-P argument.
 
 Converting a floating-point number to the specified FLOAT-FORMAT
 type may signal an ‘arithmetic-error’ condition, for example, a
@@ -102,15 +111,19 @@ type may signal an ‘arithmetic-error’ condition, for example, a
 The result if undefined if the sequences of valid plus and minus
 sign characters intersect."
   (check-type float-format (member short-float single-float double-float long-float))
+  (check-type significand-radix (integer 2 36))
+  (check-type exponent-radix (integer 2 36))
+  (check-type exponent-base (integer 2))
   (with-input-from (input-stream eof-error-p eof-value recursive-p)
       (;; Bindings.
        ((sign #\+)
 	(int 0)
 	(frac 0)
+	(base exponent-base)
 	(exp 0)
 	float)
        ;; Result.
-       (let ((val (if float (coerce (* (+ int frac) (expt 10 exp)) float-format) int)))
+       (let ((val (if float (coerce (* (+ int frac) (expt base exp)) float-format) int)))
 	 (if (char= sign #\-) (- val) val)))
     ;; Number sign.
     (cond ((eq unsigned-number :plus)
@@ -125,7 +138,7 @@ sign characters intersect."
 		  (setf sign #\+)
 		  (next-char)))))
     ;; Integer part.
-    (setf int (read-integer))
+    (setf int (read-integer significand-radix))
     (when (null next-char)
       (quit))
     ;; Optional decimal point.
@@ -135,9 +148,9 @@ sign characters intersect."
       (next-char)
       ;; Fractional part.
       (let ((start digits))
-	(setf frac (read-integer))
+	(setf frac (read-integer significand-radix))
 	(when (> digits start)
-	  (setf frac (/ frac (expt 10 (- digits start)))))
+	  (setf frac (/ frac (expt significand-radix (- digits start)))))
 	(when (null next-char)
 	  (quit))))
     ;; Need at least one digit.
@@ -158,7 +171,7 @@ sign characters intersect."
 	      ((find next-char plus-sign :test #'char=)
 	       (setf sign #\+)
 	       (next-char)))
-	(setf exp (read-integer))
+	(setf exp (read-integer exponent-radix))
 	(when (= digits 0)
 	  (quit))
 	(when (char= sign #\-)
