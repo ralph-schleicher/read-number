@@ -11,7 +11,7 @@ Reading numbers from an input stream without using the Lisp reader.
 Read an integer from an input stream.
 
 
-**read-float** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _decimal-point_ _exponent-marker_ _float-format_)
+**read-float** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _decimal-point_ _exponent-marker_ _float-format_ _significand-radix_ _exponent-radix_ _exponent-base_)
 
 Read a floating-point number from an input stream.
 
@@ -27,6 +27,10 @@ Read a floating-point number from an input stream.
 
 * Keyword arguments _plus-sign_, _minus-sign_, _decimal-point_, and
   _exponent-marker_ denote character sets.
+
+* Keyword arguments _significand-radix_, _exponent-radix_, and
+  _exponent-base_ provide support for reading, for example, C99
+  hexadecimal floating-point literals.
 
 * Leading and trailing whitespace is not ignored.
 
