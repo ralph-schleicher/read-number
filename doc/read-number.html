@@ -179,7 +179,9 @@ Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  significand from the exponent.  It does not specify the data type
  of the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
 Keyword argument FLOAT-FORMAT specifies the data type of the return
- value.  The default is ‘*read-default-float-format*’.
+ value.  Value is either ‘short-float’, ‘single-float’, ‘double-float’,
+ or ‘long-float’.  The default is ‘*read-default-float-format*’.  A
+ value of ‘nil’ means that the return value is a rational number.
 Keyword argument SIGNIFICAND-RADIX and EXPONENT-RADIX is the radix
  for the digits of the significand and exponent respectively.  Value
  has to be an integer between 2 and 36, inclusive.  The default is 10.
@@ -189,8 +191,9 @@ Keyword argument EXPONENT-BASE is the base of the power term.  Value
  has to be an integer greater than or equal to 2.  The default is 10.
 
 Return value is a floating-point number of type FLOAT-FORMAT iff a
-decimal point or exponent part is present.  Otherwise, value is an
-integer.  Secondary value is the number of characters read.
+decimal point or exponent part is present and FLOAT-FORMAT is not
+null.  Otherwise, value is a rational number.  Secondary value is
+the number of characters read.
 
 The ‘read-float’ function expects an optional sign followed by a
 non-empty sequence of digits.  It does recognize a decimal point and

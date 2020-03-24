@@ -1,0 +1,127 @@
+READ-NUMBER
+
+Reading numbers from an input stream without using the Lisp reader.
+
+The ‘read-integer’ and ‘read-float’ functions are designed to read
+external number representations.  The ‘read-number’ function (to be
+defined) is reserved for reading any Lisp number representation.
+
+                                                                      [Function]
+read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
+              eof-value recursive-p &key unsigned-number
+              (plus-sign *default-plus-sign*) (minus-sign *default-minus-sign*)
+              (radix 10))
+   Read an integer from an input stream.
+   
+   Optional first argument INPUT-STREAM is an input stream designator.
+    The default is standard input.
+   Optional second argument EOF-ERROR-P is a generalized boolean.
+    If an end of file error occurs and EOF-ERROR-P is false, EOF-VALUE
+    is returned.  Otherwise, signal an ‘end-of-file’ error.  The default
+    is true.
+   Optional third argument EOF-VALUE is an object.  See above for more
+    details.  The default is nil.
+   Optional fourth argument RECURSIVE-P is a generalized boolean.  True
+    means that this call is expected to be embedded in a higher-level
+    call to ‘read’ or a similar function used by the Lisp reader.  The
+    default is false.
+   Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
+    to read an unsigned positive number.  If UNSIGNED-NUMBER is ‘:plus’,
+    an explicit plus sign character signals a ‘parse-error’ but negative
+    numbers are permitted.  The default is false.
+   Keyword argument PLUS-SIGN is a sequence of valid plus sign
+    characters.  The plus sign is used to denote a positive number.
+    The default is ‘+’.
+   Keyword argument MINUS-SIGN is a sequence of valid minus sign
+    characters.  The minus sign is used to denote a negative number.
+    The default is ‘-’.
+   Keyword argument RADIX is a radix.  Value has to be an integer between
+    2 and 36, inclusive.  The default is 10.  Case is not significant for
+    the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
+    greater than 10.
+   
+   Return value is an integer.  Secondary value is the number of
+   characters read.
+   
+   The ‘read-integer’ function expects an optional sign followed by a
+   non-empty sequence of digits in the specified radix.  It does not
+   recognize a decimal point or exponent marker.  Leading or trailing
+   whitespace is not ignored.
+   
+   If the file ends in the middle of an integer representation,
+   ‘read-integer’ signals an ‘end-of-file’ error regardless of
+   the value of the EOF-ERROR-P argument.
+   
+   The result if undefined if the sequences of valid plus and minus
+   sign characters intersect.
+
+                                                                      [Function]
+read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
+            recursive-p &key unsigned-number (plus-sign *default-plus-sign*)
+            (minus-sign *default-minus-sign*)
+            (decimal-point *default-decimal-point*)
+            (exponent-marker *default-exponent-marker*)
+            (float-format *read-default-float-format*) (significand-radix 10)
+            (exponent-radix 10) (exponent-base 10))
+   Read a floating-point number from an input stream.
+   
+   Optional first argument INPUT-STREAM is an input stream designator.
+    The default is standard input.
+   Optional second argument EOF-ERROR-P is a generalized boolean.
+    If an end of file error occurs and EOF-ERROR-P is false, EOF-VALUE
+    is returned.  Otherwise, signal an ‘end-of-file’ error.  The default
+    is true.
+   Optional third argument EOF-VALUE is an object.  See above for more
+    details.  The default is nil.
+   Optional fourth argument RECURSIVE-P is a generalized boolean.  True
+    means that this call is expected to be embedded in a higher-level
+    call to ‘read’ or a similar function used by the Lisp reader.  The
+    default is false.
+   Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
+    to read an unsigned positive number.  If UNSIGNED-NUMBER is ‘:plus’,
+    an explicit plus sign character signals a ‘parse-error’ but negative
+    numbers are permitted.  The default is false.
+   Keyword argument PLUS-SIGN is a sequence of valid plus sign
+    characters.  The plus sign is used to denote a positive number.
+    The default is ‘+’.
+   Keyword argument MINUS-SIGN is a sequence of valid minus sign
+    characters.  The minus sign is used to denote a negative number.
+    The default is ‘-’.
+   Keyword argument DECIMAL-POINT is a sequence of valid decimal point
+    characters.  The decimal point is used to separate the integer part
+    of the significand from its fractional part.  The default is ‘.’.
+   Keyword argument EXPONENT-MARKER is a sequence of valid exponent
+    marker characters.  The exponent marker is used to separate the
+    significand from the exponent.  It does not specify the data type
+    of the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
+   Keyword argument FLOAT-FORMAT specifies the data type of the return
+    value.  Value is either ‘short-float’, ‘single-float’, ‘double-float’,
+    or ‘long-float’.  The default is ‘*read-default-float-format*’.  A
+    value of ‘nil’ means that the return value is a rational number.
+   Keyword argument SIGNIFICAND-RADIX and EXPONENT-RADIX is the radix
+    for the digits of the significand and exponent respectively.  Value
+    has to be an integer between 2 and 36, inclusive.  The default is 10.
+    Case is not significant for the digit characters ‘A’ to ‘Z’ when
+    parsing numbers with a radix greater than 10.
+   Keyword argument EXPONENT-BASE is the base of the power term.  Value
+    has to be an integer greater than or equal to 2.  The default is 10.
+   
+   Return value is a floating-point number of type FLOAT-FORMAT iff a
+   decimal point or exponent part is present and FLOAT-FORMAT is not
+   null.  Otherwise, value is a rational number.  Secondary value is
+   the number of characters read.
+   
+   The ‘read-float’ function expects an optional sign followed by a
+   non-empty sequence of digits.  It does recognize a decimal point and
+   an exponent part.  Leading or trailing whitespace is not ignored.
+   
+   If the file ends in the middle of a floating-point number
+   representation, ‘read-float’ signals an ‘end-of-file’ error
+   regardless of the value of the EOF-ERROR-P argument.
+   
+   Converting a floating-point number to the specified FLOAT-FORMAT
+   type may signal an ‘arithmetic-error’ condition, for example, a
+   ‘floating-point-overflow’ or ‘floating-point-underflow’ error.
+   
+   The result if undefined if the sequences of valid plus and minus
+   sign characters intersect.
