@@ -34,7 +34,7 @@
 ## Code:
 
 PACKAGE = read-number
-VERSION = 20200323.0459
+VERSION = 20200324.0439
 
 ### Rules
 
