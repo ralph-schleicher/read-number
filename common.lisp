@@ -74,16 +74,16 @@ Return value is the weight of CHAR as an integer, or nil."
   (and (standard-char-p char)
        (digit-char-p char radix)))
 
-(defmacro with-input-from ((input-stream eof-error-p eof-value recursive-p) (bindings result) &body body)
+(defmacro with-input-from ((input-stream eof-error-p eof-value recursivep) (bindings result) &body body)
   "Framework for reading numbers."
-  (alexandria:once-only (input-stream eof-error-p eof-value recursive-p)
+  (alexandria:once-only (input-stream eof-error-p eof-value recursivep)
     `(prog (next-char
 	    (length 0)
 	    (digits 0)
 	    ,@bindings)
 	(labels ((next-char (&optional (eof-quit-p t))
 		   "Read the next character from INPUT-STREAM."
-		   (setf next-char (read-char ,input-stream nil nil ,recursive-p))
+		   (setf next-char (read-char ,input-stream nil nil ,recursivep))
 		   (if (null next-char)
 		       (when eof-quit-p
 			 (quit))
@@ -103,7 +103,7 @@ Return value is the weight of CHAR as an integer, or nil."
 		       (error 'end-of-file :stream ,input-stream))
 		     (return (values ,eof-value length)))
 		   (return (values ,result length)))
-		 (read-integer (&optional (radix 10))
+		 (read-int (radix)
 		   "Read an integral number."
 		   (check-type radix (integer 2 36))
 		   (let ((value 0))

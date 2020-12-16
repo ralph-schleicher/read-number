@@ -40,7 +40,7 @@
 		       (input-stream *standard-input*)
 		       (eof-error-p t)
 		       eof-value
-		       recursive-p
+		       recursivep
 		     &key
 		       unsigned-number
 		       (plus-sign *default-plus-sign*)
@@ -56,7 +56,7 @@ Optional second argument EOF-ERROR-P is a generalized boolean.
  is true.
 Optional third argument EOF-VALUE is an object.  See above for more
  details.  The default is nil.
-Optional fourth argument RECURSIVE-P is a generalized boolean.  True
+Optional fourth argument RECURSIVEP is a generalized boolean.  True
  means that this call is expected to be embedded in a higher-level
  call to ‘read’ or a similar function used by the Lisp reader.  The
  default is false.
@@ -90,7 +90,7 @@ the value of the EOF-ERROR-P argument.
 The result if undefined if the sequences of valid plus and minus
 sign characters intersect."
   (check-type radix (integer 2 36))
-  (with-input-from (input-stream eof-error-p eof-value recursive-p)
+  (with-input-from (input-stream eof-error-p eof-value recursivep)
       (;; Bindings.
        ((sign #\+)
 	(int 0))
@@ -109,7 +109,7 @@ sign characters intersect."
 		  (setf sign #\+)
 		  (next-char)))))
     ;; Integer part.
-    (setf int (read-integer radix))
+    (setf int (read-int radix))
     ))
 
 ;;; read-integer.lisp ends here
