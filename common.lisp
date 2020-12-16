@@ -103,7 +103,7 @@ Return value is the weight of CHAR as an integer, or nil."
 		       (error 'end-of-file :stream ,input-stream))
 		     (return (values ,eof-value length)))
 		   (return (values ,result length)))
-		 (read-integer (&optional (radix 10))
+		 (read-integer (radix)
 		   "Read an integral number."
 		   (check-type radix (integer 2 36))
 		   (let ((value 0))
