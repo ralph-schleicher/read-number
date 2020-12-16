@@ -109,7 +109,7 @@ sign characters intersect."
 		  (setf sign #\+)
 		  (next-char)))))
     ;; Integer part.
-    (setf int (read-integer radix))
+    (setf int (read-int radix))
     ))
 
 ;;; read-integer.lisp ends here

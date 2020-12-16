@@ -143,7 +143,7 @@ sign characters intersect."
 		  (setf sign #\+)
 		  (next-char)))))
     ;; Integer part.
-    (setf int (read-integer significand-radix))
+    (setf int (read-int significand-radix))
     (when (null next-char)
       (quit))
     ;; Optional decimal point.
@@ -153,7 +153,7 @@ sign characters intersect."
       (next-char)
       ;; Fractional part.
       (let ((start digits))
-	(setf frac (read-integer significand-radix))
+	(setf frac (read-int significand-radix))
 	(when (> digits start)
 	  (setf frac (/ frac (expt significand-radix (- digits start)))))
 	(when (null next-char)
@@ -176,7 +176,7 @@ sign characters intersect."
 	      ((find next-char plus-sign :test #'char=)
 	       (setf sign #\+)
 	       (next-char)))
-	(setf exp (read-integer exponent-radix))
+	(setf exp (read-int exponent-radix))
 	(when (= digits 0)
 	  (quit))
 	(when (char= sign #\-)
