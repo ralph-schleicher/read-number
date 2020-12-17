@@ -53,6 +53,10 @@ If OBJECT is an empty sequence, value is true, too."
   "Sequence of valid minus sign characters.")
 (declaim (type sequence-of-characters *default-minus-sign*))
 
+(defvar *default-group-separator* ()
+  "Sequence of valid group separator characters.")
+(declaim (type sequence-of-characters *default-group-separator*))
+
 (defvar *default-decimal-point* "."
   "Sequence of valid decimal point characters.")
 (declaim (type sequence-of-characters *default-decimal-point*))
@@ -75,8 +79,40 @@ Return value is the weight of CHAR as an integer, or nil."
        (digit-char-p char radix)))
 
 (defmacro with-input-from ((input-stream eof-error-p eof-value recursivep) (bindings result) &body body)
-  "Framework for reading numbers."
-  (alexandria:once-only (input-stream eof-error-p eof-value recursivep)
+  "Framework for reading numbers.  The local bindings available in BODY
+are documented below.
+
+ -- next-char (&optional (EOF-QUIT-P t))                      [Function]
+     Read the next character from INPUT-STREAM.  If optional
+     argument EOF-QUIT-P is true, call ‘quit’ if no character
+     can be read.  Modifies ‘next-char’ and maybe ‘length’.
+
+ -- next-char                                                 [Variable]
+     The last character read by the ‘next-char’ function.
+
+ -- quit ()                                                   [Function]
+     Undo the effects of the ‘next-char’ function.  Return RESULT
+     if a valid number could be read.  Otherwise, signal an error.
+
+ -- length                                                    [Variable]
+     The total number of characters read so far.  This is the
+     secondary value returned by the ‘quit’ function.  This
+     variable shall be considered read-only.
+
+ -- digits                                                    [Variable]
+     The total number of digits consumed so far.  This variable
+     can be modified by the user.  A value of zero indicates for
+     the ‘quit’ function that no valid number could be read.
+
+ -- read-int (RADIX GROUP-SEPARATOR)                          [Function]
+     Read a sequence of digits and return its numerical value.
+     May call ‘next-char’ and ‘quit’.  Maybe modifies ‘digits’."
+  (alexandria:once-only (input-stream eof-error-p eof-value recursivep
+			 ;; The actual group separator.
+			 (group-separator-char nil)
+			 ;; The global parser state, non-null indicates
+			 ;; a parse error.
+			 (state nil))
     `(prog (next-char
 	    (length 0)
 	    (digits 0)
@@ -94,7 +130,7 @@ Return value is the weight of CHAR as an integer, or nil."
 		   (when next-char
 		     (unread-char next-char ,input-stream)
 		     (decf length))
-		   (when (= digits 0)
+		   (when (or (= digits 0) ,state)
 		     (when next-char
 		       (error 'parse-error :stream ,input-stream))
 		     ;; Always signal an end-of-file error when the file
@@ -103,19 +139,35 @@ Return value is the weight of CHAR as an integer, or nil."
 		       (error 'end-of-file :stream ,input-stream))
 		     (return (values ,eof-value length)))
 		   (return (values ,result length)))
-		 (read-int (radix)
-		   "Read an integral number."
+		 (read-int (radix group-separator)
+		   "Read a sequence of digits."
 		   (check-type radix (integer 2 36))
-		   (let ((value 0))
+		   (let ((value 0)
+			 ;; Save global parser state.  Will be
+			 ;; restored if no parse error occurs.
+			 (state ,state))
+		     (setf ,state nil)
 		     (let (digit)
-		       (loop (setf digit (standard-digit-char-p next-char radix))
-			     (when (null digit)
-			       (return))
-			     (setf value (+ (* value radix) digit))
-			     (incf digits)
-			     (next-char nil)
-			     (when (null next-char)
-			       (return))))
+		       (loop (cond ((and (eq ,state :digit)
+					 (if (not (null ,group-separator-char))
+					     (char= next-char ,group-separator-char)
+					   (when (find next-char group-separator :test #'char=)
+					     (setf ,group-separator-char next-char))))
+				    (setf ,state :group-separator)
+				    (next-char))
+				   (t
+				    (setf digit (standard-digit-char-p next-char radix))
+				    (when (null digit)
+				      (return))
+				    (setf ,state :digit)
+				    (setf value (+ (* value radix) digit))
+				    (incf digits)
+				    (next-char nil)
+				    (when (null next-char)
+				      (return))))))
+		     (when (eq ,state :group-separator)
+		       (quit))
+		     (setf ,state state)
 		     value)))
 	  ;; Read first character.
 	  (next-char)
