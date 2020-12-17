@@ -34,7 +34,7 @@
 ## Code:
 
 PACKAGE = read-number
-VERSION = 20200324.0439
+VERSION = 20201217.1756
 
 ### Rules
 
@@ -63,6 +63,7 @@ sync: all
 	~/src/github/github.sh $(PACKAGE)
 
 # local variables:
+# time-stamp-line-limit: 0
 # time-stamp-time-zone: "UTC"
 # time-stamp-format: "%:y%02m%02d.%02H%02M"
 # time-stamp-start: "^VERSION\\s-*=\\s-*"
