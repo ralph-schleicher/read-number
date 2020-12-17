@@ -45,6 +45,7 @@
 		       unsigned-number
 		       (plus-sign *default-plus-sign*)
 		       (minus-sign *default-minus-sign*)
+		       (group-separator *default-group-separator*)
 		       (radix 10))
   "Read an integer from an input stream.
 
@@ -70,6 +71,12 @@ Keyword argument PLUS-SIGN is a sequence of valid plus sign
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
  The default is ‘-’.
+Keyword argument GROUP-SEPARATOR is a sequence of valid group
+ separator characters.  The group separator is used to separate
+ the digits of a number into groups.  The default is the empty
+ list.  The group separator of a number can not change, i.e. the
+ first matching group separator fixes the group separator for the
+ rest of the number.
 Keyword argument RADIX is a radix.  Value has to be an integer between
  2 and 36, inclusive.  The default is 10.  Case is not significant for
  the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
@@ -109,7 +116,7 @@ sign characters intersect."
 		  (setf sign #\+)
 		  (next-char)))))
     ;; Integer part.
-    (setf int (read-int radix))
+    (setf int (read-int radix group-separator))
     ))
 
 ;;; read-integer.lisp ends here
