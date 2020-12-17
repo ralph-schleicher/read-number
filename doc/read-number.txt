@@ -8,9 +8,9 @@ defined) is reserved for reading any Lisp number representation.
 
                                                                       [Function]
 read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
-              eof-value recursive-p &key unsigned-number
+              eof-value recursivep &key unsigned-number
               (plus-sign *default-plus-sign*) (minus-sign *default-minus-sign*)
-              (radix 10))
+              (group-separator *default-group-separator*) (radix 10))
    Read an integer from an input stream.
    
    Optional first argument INPUT-STREAM is an input stream designator.
@@ -21,7 +21,7 @@ read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
     is true.
    Optional third argument EOF-VALUE is an object.  See above for more
     details.  The default is nil.
-   Optional fourth argument RECURSIVE-P is a generalized boolean.  True
+   Optional fourth argument RECURSIVEP is a generalized boolean.  True
     means that this call is expected to be embedded in a higher-level
     call to ‘read’ or a similar function used by the Lisp reader.  The
     default is false.
@@ -35,6 +35,12 @@ read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
    Keyword argument MINUS-SIGN is a sequence of valid minus sign
     characters.  The minus sign is used to denote a negative number.
     The default is ‘-’.
+   Keyword argument GROUP-SEPARATOR is a sequence of valid group
+    separator characters.  The group separator is used to separate
+    the digits of a number into groups.  The default is the empty
+    list.  The group separator of a number can not change, i.e. the
+    first matching group separator fixes the group separator for the
+    rest of the number.
    Keyword argument RADIX is a radix.  Value has to be an integer between
     2 and 36, inclusive.  The default is 10.  Case is not significant for
     the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
@@ -57,8 +63,9 @@ read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
 
                                                                       [Function]
 read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
-            recursive-p &key unsigned-number (plus-sign *default-plus-sign*)
+            recursivep &key unsigned-number (plus-sign *default-plus-sign*)
             (minus-sign *default-minus-sign*)
+            (group-separator *default-group-separator*)
             (decimal-point *default-decimal-point*)
             (exponent-marker *default-exponent-marker*)
             (float-format *read-default-float-format*) (significand-radix 10)
@@ -73,7 +80,7 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
     is true.
    Optional third argument EOF-VALUE is an object.  See above for more
     details.  The default is nil.
-   Optional fourth argument RECURSIVE-P is a generalized boolean.  True
+   Optional fourth argument RECURSIVEP is a generalized boolean.  True
     means that this call is expected to be embedded in a higher-level
     call to ‘read’ or a similar function used by the Lisp reader.  The
     default is false.
@@ -87,6 +94,12 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
    Keyword argument MINUS-SIGN is a sequence of valid minus sign
     characters.  The minus sign is used to denote a negative number.
     The default is ‘-’.
+   Keyword argument GROUP-SEPARATOR is a sequence of valid group
+    separator characters.  The group separator is used to separate
+    the digits of a number into groups.  The default is the empty
+    list.  The group separator of a number can not change, i.e. the
+    first matching group separator fixes the group separator for the
+    rest of the number.
    Keyword argument DECIMAL-POINT is a sequence of valid decimal point
     characters.  The decimal point is used to separate the integer part
     of the significand from its fractional part.  The default is ‘.’.
