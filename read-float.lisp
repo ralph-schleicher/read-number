@@ -45,6 +45,7 @@
 		     unsigned-number
 		     (plus-sign *default-plus-sign*)
 		     (minus-sign *default-minus-sign*)
+		     (group-separator *default-group-separator*)
 		     (decimal-point *default-decimal-point*)
 		     (exponent-marker *default-exponent-marker*)
 		     (float-format *read-default-float-format*)
@@ -75,6 +76,12 @@ Keyword argument PLUS-SIGN is a sequence of valid plus sign
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
  The default is ‘-’.
+Keyword argument GROUP-SEPARATOR is a sequence of valid group
+ separator characters.  The group separator is used to separate
+ the digits of a number into groups.  The default is the empty
+ list.  The group separator of a number can not change, i.e. the
+ first matching group separator fixes the group separator for the
+ rest of the number.
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
  of the significand from its fractional part.  The default is ‘.’.
@@ -143,7 +150,7 @@ sign characters intersect."
 		  (setf sign #\+)
 		  (next-char)))))
     ;; Integer part.
-    (setf int (read-int significand-radix))
+    (setf int (read-int significand-radix group-separator))
     (when (null next-char)
       (quit))
     ;; Optional decimal point.
@@ -153,7 +160,7 @@ sign characters intersect."
       (next-char)
       ;; Fractional part.
       (let ((start digits))
-	(setf frac (read-int significand-radix))
+	(setf frac (read-int significand-radix group-separator))
 	(when (> digits start)
 	  (setf frac (/ frac (expt significand-radix (- digits start)))))
 	(when (null next-char)
@@ -176,7 +183,7 @@ sign characters intersect."
 	      ((find next-char plus-sign :test #'char=)
 	       (setf sign #\+)
 	       (next-char)))
-	(setf exp (read-int exponent-radix))
+	(setf exp (read-int exponent-radix group-separator))
 	(when (= digits 0)
 	  (quit))
 	(when (char= sign #\-)
