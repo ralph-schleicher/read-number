@@ -35,8 +35,7 @@
 
 (in-package :read-number)
 
-(export 'read-float)
-(defun read-float (&optional
+((defun read-float (&optional
 		     (input-stream *standard-input*)
 		     (eof-error-p t)
 		     eof-value

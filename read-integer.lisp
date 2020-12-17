@@ -35,7 +35,6 @@
 
 (in-package :read-number)
 
-(export 'read-integer)
 (defun read-integer (&optional
 		       (input-stream *standard-input*)
 		       (eof-error-p t)

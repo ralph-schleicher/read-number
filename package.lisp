@@ -37,6 +37,8 @@
 
 (defpackage :read-number
   (:use :common-lisp)
+  (:export #:read-integer
+	   #:read-float)
   (:documentation
    "Reading numbers from an input stream without using the Lisp reader.
 
