@@ -46,23 +46,47 @@ If OBJECT is an empty sequence, value is true, too."
   '(satisfies sequence-of-characters-p))
 
 (defvar *default-plus-sign* "+"
-  "Sequence of valid plus sign characters.")
+  "Controls the set of valid plus sign characters when reading an
+external number representation.  Value has to be a sequence of
+characters.  Default is ‘+’ (Unicode U+002B, plus sign).")
 (declaim (type sequence-of-characters *default-plus-sign*))
 
 (defvar *default-minus-sign* "-"
-  "Sequence of valid minus sign characters.")
+  "Controls the set of valid minus sign characters when reading an
+external number representation.  Value has to be a sequence of
+characters.  Default is ‘-’ (Unicode U+002D, hyphen-minus).
+
+Another candidate for this character set is ‘−’ (Unicode U+2212,
+minus sign).")
 (declaim (type sequence-of-characters *default-minus-sign*))
 
 (defvar *default-group-separator* ()
-  "Sequence of valid group separator characters.")
+  "Controls the set of valid group separator characters when reading
+an external number representation.  Value has to be a sequence of
+characters.  Default is the empty set.
+
+Candidates for this character set are ‘'’ (Unicode U+0027, apostrophe),
+‘_’ (Unicode U+005F, low line), ‘ ’ (Unicode U+00A0, no-break space),
+and ‘ ’ (Unicode U+202F, narrow no-break space).  The preferred group
+separator according to ISO 31 is the narrow no-break space character.")
 (declaim (type sequence-of-characters *default-group-separator*))
 
 (defvar *default-decimal-point* "."
-  "Sequence of valid decimal point characters.")
+  "Controls the set of valid decimal point characters when reading
+an external number representation.  Value has to be a sequence of
+characters.  Default is ‘.’ (Unicode U+002E, full stop).
+
+Another candidate for this character set is ‘,’ (Unicode U+002C,
+comma).  ISO 31 uses the decimal point in the international English
+version of the standard and the decimal comma in the original French
+version.  Interactive applications should accept both variants to
+improve usability.")
 (declaim (type sequence-of-characters *default-decimal-point*))
 
 (defvar *default-exponent-marker* "EeDd" ;f-language
-  "Sequence of valid exponent marker characters.")
+  "Controls the set of valid exponent marker characters when reading
+an external number representation.  Value has to be a sequence of
+characters.  Default is ‘E’, ‘e’, ‘D’, and ‘d’."
 (declaim (type sequence-of-characters *default-exponent-marker*))
 
 (declaim (inline standard-digit-char-p))
