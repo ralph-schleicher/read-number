@@ -81,12 +81,12 @@ comma).  ISO 31 uses the decimal point in the international English
 version of the standard and the decimal comma in the original French
 version.  Interactive applications should accept both variants to
 improve usability.")
-(declaim (type sequence-of-characters *default-decimal-point*))
+(declaim (type sequence-of-characters *default-decimal-point*))	
 
 (defvar *default-exponent-marker* "EeDd" ;f-language
   "Controls the set of valid exponent marker characters when reading
 an external number representation.  Value has to be a sequence of
-characters.  Default is ‘E’, ‘e’, ‘D’, and ‘d’."
+characters.  Default is ‘E’, ‘e’, ‘D’, and ‘d’.")
 (declaim (type sequence-of-characters *default-exponent-marker*))
 
 (declaim (inline standard-digit-char-p))
