@@ -6,12 +6,12 @@ Reading numbers from an input stream without using the Lisp reader.
 ## Functions
 
 
-**read-integer** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _radix_)
+**read-integer** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursivep_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _group-separator_ _radix_)
 
 Read an integer from an input stream.
 
 
-**read-float** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursive-p_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _decimal-point_ _exponent-marker_ _float-format_ _significand-radix_ _exponent-radix_ _exponent-base_)
+**read-float** (&optional _input-stream_ _eof-error-p_ _eof-value_ _recursivep_ &key _unsigned-number_ _plus-sign_ _minus-sign_ _group-separator_ _decimal-point_ _exponent-marker_ _float-format_ _significand-radix_ _exponent-radix_ _exponent-base_)
 
 Read a floating-point number from an input stream.
 
@@ -19,14 +19,14 @@ Read a floating-point number from an input stream.
 ## Features
 
 * Optional arguments _input-stream_, _eof-error-p_, _eof-value_, and
-  _recursive-p_ behave similar to `read`.
+  _recursivep_ behave similar to `read`.
 
 * Keyword argument _unsigned-number_ controls the sign conventions;
   plus or minus sign, minus sign only (no explicit plus sign), or
   unsigned.
 
-* Keyword arguments _plus-sign_, _minus-sign_, _decimal-point_, and
-  _exponent-marker_ denote character sets.
+* Keyword arguments _plus-sign_, _minus-sign_, _group-separator_,
+  _decimal-point_, and _exponent-marker_ denote character sets.
 
 * Keyword arguments _significand-radix_, _exponent-radix_, and
   _exponent-base_ provide support for reading, for example, C99
