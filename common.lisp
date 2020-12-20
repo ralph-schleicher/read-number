@@ -73,14 +73,16 @@ If OBJECT is an empty sequence, value is true, too."
 
 (defvar *default-plus-sign* "+"
   "Controls the set of valid plus sign characters when reading an
-external number representation.  Value has to be a sequence of
-characters.  Default is ‘+’ (Unicode U+002B, plus sign).")
+external number representation and no explicit :plus-sign keyword
+argument is specified.  Value has to be a sequence of characters.
+Default is ‘+’ (Unicode U+002B, plus sign).")
 (declaim (type sequence-of-characters *default-plus-sign*))
 
 (defvar *default-minus-sign* "-"
   "Controls the set of valid minus sign characters when reading an
-external number representation.  Value has to be a sequence of
-characters.  Default is ‘-’ (Unicode U+002D, hyphen-minus).
+external number representation and no explicit :minus-sign keyword
+argument is specified.  Value has to be a sequence of characters.
+Default is ‘-’ (Unicode U+002D, hyphen-minus).
 
 Another candidate for this character set is ‘−’ (Unicode U+2212,
 minus sign).")
@@ -88,7 +90,8 @@ minus sign).")
 
 (defvar *default-group-separator* ()
   "Controls the set of valid group separator characters when reading
-an external number representation.  Value has to be a sequence of
+an external number representation and no explicit :group-separator
+keyword argument is specified.  Value has to be a sequence of
 characters.  Default is the empty set.
 
 Candidates for this character set are ‘'’ (Unicode U+0027, apostrophe),
@@ -99,8 +102,9 @@ separator according to ISO 31 is the narrow no-break space character.")
 
 (defvar *default-decimal-point* "."
   "Controls the set of valid decimal point (or better radix point),
-characters when reading an external number representation.  Value has
-to be a sequence of characters.  Default is ‘.’ (Unicode U+002E, full
+characters when reading an external number representation and no
+explicit :decimal-point keyword argument is specified.  Value has
+be a sequence of characters.  Default is ‘.’ (Unicode U+002E, full
 stop).
 
 Another candidate for this character set is ‘,’ (Unicode U+002C,
@@ -112,7 +116,8 @@ improve usability.")
 
 (defvar *default-exponent-marker* "EeDd" ;f-language
   "Controls the set of valid exponent marker characters when reading
-an external number representation.  Value has to be a sequence of
+an external number representation and no explicit :exponent-marker
+keyword argument is specified.  Value has to be a sequence of
 characters.  Default is ‘E’, ‘e’, ‘D’, and ‘d’.")
 (declaim (type sequence-of-characters *default-exponent-marker*))
 
