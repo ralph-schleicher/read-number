@@ -71,27 +71,32 @@ Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is ‘+’.
+ The default is the value of the ‘*default-plus-sign*’ special
+ variable.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is ‘-’.
+ The default is the value of the ‘*default-minus-sign*’ special
+ variable.
 Keyword argument GROUP-SEPARATOR is a sequence of valid group
- separator characters.  The group separator is used to separate
- the digits of a number into groups.  The default is the empty
- list.  The group separator of a number can not change, i.e. the
- first matching group separator fixes the group separator for the
- rest of the number.
+ separator characters.  The group separator is used to separate the
+ digits of a number into groups.  The default is the value of the
+ ‘*default-group-separator*’ special variable.  The group separator
+ of a number can not change, i.e. the first matching group separator
+ fixes the group separator for the rest of the number.
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
- of the significand from its fractional part.  The default is ‘.’.
+ of the significand from its fractional part.  The default is the
+ is the value of the ‘*default-decimal-point*’ special variable.
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
  significand from the exponent.  It does not specify the data type
- of the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
-Keyword argument FLOAT-FORMAT specifies the data type of the return
- value.  Value is either ‘short-float’, ‘single-float’, ‘double-float’,
- or ‘long-float’.  The default is ‘*read-default-float-format*’.  A
- value of ‘nil’ means that the return value is a rational number.
+ of the return value.  The default is the value of the
+ ‘*default-exponent-marker*’ special variable.
+Keyword argument FLOAT-FORMAT specifies the data type of the
+ return value.  Value is either ‘short-float’, ‘single-float’,
+ ‘double-float’, or ‘long-float’.  The default is the value of the
+ ‘*read-default-float-format*’ special variable.  A value of ‘nil’
+ means that the return value is a rational number.
 Keyword argument SIGNIFICAND-RADIX and EXPONENT-RADIX is the radix
  for the digits of the significand and exponent respectively.  Value
  has to be an integer between 2 and 36, inclusive.  The default is 10.

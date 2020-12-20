@@ -66,16 +66,18 @@ Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is ‘+’.
+ The default is the value of the ‘*default-plus-sign*’ special
+ variable.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is ‘-’.
+ The default is the value of the ‘*default-minus-sign*’ special
+ variable.
 Keyword argument GROUP-SEPARATOR is a sequence of valid group
- separator characters.  The group separator is used to separate
- the digits of a number into groups.  The default is the empty
- list.  The group separator of a number can not change, i.e. the
- first matching group separator fixes the group separator for the
- rest of the number.
+ separator characters.  The group separator is used to separate the
+ digits of a number into groups.  The default is the value of the
+ ‘*default-group-separator*’ special variable.  The group separator
+ of a number can not change, i.e. the first matching group separator
+ fixes the group separator for the rest of the number.
 Keyword argument RADIX is a radix.  Value has to be an integer between
  2 and 36, inclusive.  The default is 10.  Case is not significant for
  the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
