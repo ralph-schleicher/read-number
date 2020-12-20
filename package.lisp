@@ -37,7 +37,12 @@
 
 (defpackage :read-number
   (:use :common-lisp)
-  (:export #:read-integer
+  (:export #:*default-plus-sign*
+	   #:*default-minus-sign*
+	   #:*default-group-separator*
+	   #:*default-decimal-point*
+	   #:*default-exponent-marker*
+	   #:read-integer
 	   #:read-float)
   (:documentation
    "Reading numbers from an input stream without using the Lisp reader.
