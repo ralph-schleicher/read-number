@@ -51,6 +51,36 @@ defined) is reserved for reading any Lisp number representation.</pre>
    <div class="contents-listing">
     <ul>
      <li>
+      <a href="#_ab496154-d21c-52fb-89d7-964d6595a831">
+       <span class="category">Special Variable</span>
+       <span class="symbol">*default-plus-sign*</span>
+      </a>
+     </li>
+     <li>
+      <a href="#_6cfd1cc6-a43e-5ad8-bd23-8bba79da6b72">
+       <span class="category">Special Variable</span>
+       <span class="symbol">*default-minus-sign*</span>
+      </a>
+     </li>
+     <li>
+      <a href="#_7b63a687-2ff0-5557-81fa-348768338def">
+       <span class="category">Special Variable</span>
+       <span class="symbol">*default-group-separator*</span>
+      </a>
+     </li>
+     <li>
+      <a href="#_9ab49635-1463-5981-8697-e9695f928785">
+       <span class="category">Special Variable</span>
+       <span class="symbol">*default-decimal-point*</span>
+      </a>
+     </li>
+     <li>
+      <a href="#_7f502cd8-70ad-5a2d-abe9-8be9f46d55f2">
+       <span class="category">Special Variable</span>
+       <span class="symbol">*default-exponent-marker*</span>
+      </a>
+     </li>
+     <li>
       <a href="#_d023c279-5abd-5684-a4ee-c2ead05b05bb">
        <span class="category">Function</span>
        <span class="symbol">read-integer</span>
@@ -66,6 +96,141 @@ defined) is reserved for reading any Lisp number representation.</pre>
    </div>
   </div>
   <div class="dictionary">
+   <div class="definition" id="_ab496154-d21c-52fb-89d7-964d6595a831">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">*default-plus-sign*</span></a></td>
+	<td class="lambda-list"></td>
+	<td class="category"><span class="category">Special Variable</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Controls the set of valid plus sign characters when reading an
+external number representation and no explicit plus sign keyword
+argument is specified.  Value has to be a sequence of characters.
+The default is ‘+’ (Unicode U+002B, plus sign).</pre>
+    </div>
+   </div>
+   <div class="definition" id="_6cfd1cc6-a43e-5ad8-bd23-8bba79da6b72">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">*default-minus-sign*</span></a></td>
+	<td class="lambda-list"></td>
+	<td class="category"><span class="category">Special Variable</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Controls the set of valid minus sign characters when reading an
+external number representation and no explicit minus sign keyword
+argument is specified.  Value has to be a sequence of characters.
+The default is ‘-’ (Unicode U+002D, hyphen-minus).
+
+Another candidate for this character set is ‘−’ (Unicode U+2212,
+minus sign).</pre>
+    </div>
+   </div>
+   <div class="definition" id="_7b63a687-2ff0-5557-81fa-348768338def">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">*default-group-separator*</span></a></td>
+	<td class="lambda-list"></td>
+	<td class="category"><span class="category">Special Variable</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Controls the set of valid group separator characters when reading
+an external number representation and no explicit group separator
+keyword argument is specified.  Value has to be a sequence of
+characters.  The default is the empty set.
+
+Candidates for this character set are ‘'’ (Unicode U+0027, apostrophe),
+‘_’ (Unicode U+005F, low line), ‘ ’ (Unicode U+00A0, no-break space),
+and ‘ ’ (Unicode U+202F, narrow no-break space).  The preferred group
+separator according to ISO 31 is the narrow no-break space character.</pre>
+    </div>
+   </div>
+   <div class="definition" id="_9ab49635-1463-5981-8697-e9695f928785">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">*default-decimal-point*</span></a></td>
+	<td class="lambda-list"></td>
+	<td class="category"><span class="category">Special Variable</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Controls the set of valid decimal point (or better radix point),
+characters when reading an external number representation and no
+explicit ‘decimal-point’ keyword argument is specified.  Value has
+be a sequence of characters.  The default is ‘.’ (Unicode U+002E,
+full stop).
+
+Another candidate for this character set is ‘,’ (Unicode U+002C,
+comma).  ISO 31 uses the decimal point in the international English
+version of the standard and the decimal comma in the original French
+version.  Interactive applications should accept both variants to
+improve usability.</pre>
+    </div>
+   </div>
+   <div class="definition" id="_7f502cd8-70ad-5a2d-abe9-8be9f46d55f2">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">*default-exponent-marker*</span></a></td>
+	<td class="lambda-list"></td>
+	<td class="category"><span class="category">Special Variable</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Controls the set of valid exponent marker characters when reading
+an external number representation and no explicit exponent marker
+keyword argument is specified.  Value has to be a sequence of
+characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.</pre>
+    </div>
+   </div>
    <div class="definition" id="_d023c279-5abd-5684-a4ee-c2ead05b05bb">
     <div class="signature">
      <table class="signature">
@@ -104,16 +269,18 @@ Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is ‘+’.
+ The default is the value of the ‘*default-plus-sign*’ special
+ variable.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is ‘-’.
+ The default is the value of the ‘*default-minus-sign*’ special
+ variable.
 Keyword argument GROUP-SEPARATOR is a sequence of valid group
- separator characters.  The group separator is used to separate
- the digits of a number into groups.  The default is the empty
- list.  The group separator of a number can not change, i.e. the
- first matching group separator fixes the group separator for the
- rest of the number.
+ separator characters.  The group separator is used to separate the
+ digits of a number into groups.  The default is the value of the
+ ‘*default-group-separator*’ special variable.  The group separator
+ of a number can not change, i.e. the first matching group separator
+ fixes the group separator for the rest of the number.
 Keyword argument RADIX is a radix.  Value has to be an integer between
  2 and 36, inclusive.  The default is 10.  Case is not significant for
  the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
@@ -173,27 +340,32 @@ Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is ‘+’.
+ The default is the value of the ‘*default-plus-sign*’ special
+ variable.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is ‘-’.
+ The default is the value of the ‘*default-minus-sign*’ special
+ variable.
 Keyword argument GROUP-SEPARATOR is a sequence of valid group
- separator characters.  The group separator is used to separate
- the digits of a number into groups.  The default is the empty
- list.  The group separator of a number can not change, i.e. the
- first matching group separator fixes the group separator for the
- rest of the number.
+ separator characters.  The group separator is used to separate the
+ digits of a number into groups.  The default is the value of the
+ ‘*default-group-separator*’ special variable.  The group separator
+ of a number can not change, i.e. the first matching group separator
+ fixes the group separator for the rest of the number.
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
- of the significand from its fractional part.  The default is ‘.’.
+ of the significand from its fractional part.  The default is the
+ is the value of the ‘*default-decimal-point*’ special variable.
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
  significand from the exponent.  It does not specify the data type
- of the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
-Keyword argument FLOAT-FORMAT specifies the data type of the return
- value.  Value is either ‘short-float’, ‘single-float’, ‘double-float’,
- or ‘long-float’.  The default is ‘*read-default-float-format*’.  A
- value of ‘nil’ means that the return value is a rational number.
+ of the return value.  The default is the value of the
+ ‘*default-exponent-marker*’ special variable.
+Keyword argument FLOAT-FORMAT specifies the data type of the
+ return value.  Value is either ‘short-float’, ‘single-float’,
+ ‘double-float’, or ‘long-float’.  The default is the value of the
+ ‘*read-default-float-format*’ special variable.  A value of ‘nil’
+ means that the return value is a rational number.
 Keyword argument SIGNIFICAND-RADIX and EXPONENT-RADIX is the radix
  for the digits of the significand and exponent respectively.  Value
  has to be an integer between 2 and 36, inclusive.  The default is 10.

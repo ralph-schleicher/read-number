@@ -6,6 +6,56 @@ The ‘read-integer’ and ‘read-float’ functions are designed to read
 external number representations.  The ‘read-number’ function (to be
 defined) is reserved for reading any Lisp number representation.
 
+                                                              [Special Variable]
+*default-plus-sign*
+   Controls the set of valid plus sign characters when reading an
+   external number representation and no explicit plus sign keyword
+   argument is specified.  Value has to be a sequence of characters.
+   The default is ‘+’ (Unicode U+002B, plus sign).
+
+                                                              [Special Variable]
+*default-minus-sign*
+   Controls the set of valid minus sign characters when reading an
+   external number representation and no explicit minus sign keyword
+   argument is specified.  Value has to be a sequence of characters.
+   The default is ‘-’ (Unicode U+002D, hyphen-minus).
+   
+   Another candidate for this character set is ‘−’ (Unicode U+2212,
+   minus sign).
+
+                                                              [Special Variable]
+*default-group-separator*
+   Controls the set of valid group separator characters when reading
+   an external number representation and no explicit group separator
+   keyword argument is specified.  Value has to be a sequence of
+   characters.  The default is the empty set.
+   
+   Candidates for this character set are ‘'’ (Unicode U+0027, apostrophe),
+   ‘_’ (Unicode U+005F, low line), ‘ ’ (Unicode U+00A0, no-break space),
+   and ‘ ’ (Unicode U+202F, narrow no-break space).  The preferred group
+   separator according to ISO 31 is the narrow no-break space character.
+
+                                                              [Special Variable]
+*default-decimal-point*
+   Controls the set of valid decimal point (or better radix point),
+   characters when reading an external number representation and no
+   explicit ‘decimal-point’ keyword argument is specified.  Value has
+   be a sequence of characters.  The default is ‘.’ (Unicode U+002E,
+   full stop).
+   
+   Another candidate for this character set is ‘,’ (Unicode U+002C,
+   comma).  ISO 31 uses the decimal point in the international English
+   version of the standard and the decimal comma in the original French
+   version.  Interactive applications should accept both variants to
+   improve usability.
+
+                                                              [Special Variable]
+*default-exponent-marker*
+   Controls the set of valid exponent marker characters when reading
+   an external number representation and no explicit exponent marker
+   keyword argument is specified.  Value has to be a sequence of
+   characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
+
                                                                       [Function]
 read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
               eof-value recursivep &key unsigned-number
@@ -31,16 +81,18 @@ read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
     numbers are permitted.  The default is false.
    Keyword argument PLUS-SIGN is a sequence of valid plus sign
     characters.  The plus sign is used to denote a positive number.
-    The default is ‘+’.
+    The default is the value of the ‘*default-plus-sign*’ special
+    variable.
    Keyword argument MINUS-SIGN is a sequence of valid minus sign
     characters.  The minus sign is used to denote a negative number.
-    The default is ‘-’.
+    The default is the value of the ‘*default-minus-sign*’ special
+    variable.
    Keyword argument GROUP-SEPARATOR is a sequence of valid group
-    separator characters.  The group separator is used to separate
-    the digits of a number into groups.  The default is the empty
-    list.  The group separator of a number can not change, i.e. the
-    first matching group separator fixes the group separator for the
-    rest of the number.
+    separator characters.  The group separator is used to separate the
+    digits of a number into groups.  The default is the value of the
+    ‘*default-group-separator*’ special variable.  The group separator
+    of a number can not change, i.e. the first matching group separator
+    fixes the group separator for the rest of the number.
    Keyword argument RADIX is a radix.  Value has to be an integer between
     2 and 36, inclusive.  The default is 10.  Case is not significant for
     the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
@@ -90,27 +142,32 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
     numbers are permitted.  The default is false.
    Keyword argument PLUS-SIGN is a sequence of valid plus sign
     characters.  The plus sign is used to denote a positive number.
-    The default is ‘+’.
+    The default is the value of the ‘*default-plus-sign*’ special
+    variable.
    Keyword argument MINUS-SIGN is a sequence of valid minus sign
     characters.  The minus sign is used to denote a negative number.
-    The default is ‘-’.
+    The default is the value of the ‘*default-minus-sign*’ special
+    variable.
    Keyword argument GROUP-SEPARATOR is a sequence of valid group
-    separator characters.  The group separator is used to separate
-    the digits of a number into groups.  The default is the empty
-    list.  The group separator of a number can not change, i.e. the
-    first matching group separator fixes the group separator for the
-    rest of the number.
+    separator characters.  The group separator is used to separate the
+    digits of a number into groups.  The default is the value of the
+    ‘*default-group-separator*’ special variable.  The group separator
+    of a number can not change, i.e. the first matching group separator
+    fixes the group separator for the rest of the number.
    Keyword argument DECIMAL-POINT is a sequence of valid decimal point
     characters.  The decimal point is used to separate the integer part
-    of the significand from its fractional part.  The default is ‘.’.
+    of the significand from its fractional part.  The default is the
+    is the value of the ‘*default-decimal-point*’ special variable.
    Keyword argument EXPONENT-MARKER is a sequence of valid exponent
     marker characters.  The exponent marker is used to separate the
     significand from the exponent.  It does not specify the data type
-    of the return value.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
-   Keyword argument FLOAT-FORMAT specifies the data type of the return
-    value.  Value is either ‘short-float’, ‘single-float’, ‘double-float’,
-    or ‘long-float’.  The default is ‘*read-default-float-format*’.  A
-    value of ‘nil’ means that the return value is a rational number.
+    of the return value.  The default is the value of the
+    ‘*default-exponent-marker*’ special variable.
+   Keyword argument FLOAT-FORMAT specifies the data type of the
+    return value.  Value is either ‘short-float’, ‘single-float’,
+    ‘double-float’, or ‘long-float’.  The default is the value of the
+    ‘*read-default-float-format*’ special variable.  A value of ‘nil’
+    means that the return value is a rational number.
    Keyword argument SIGNIFICAND-RADIX and EXPONENT-RADIX is the radix
     for the digits of the significand and exponent respectively.  Value
     has to be an integer between 2 and 36, inclusive.  The default is 10.
