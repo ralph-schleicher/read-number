@@ -73,16 +73,16 @@ If OBJECT is an empty sequence, value is true, too."
 
 (defvar *default-plus-sign* "+"
   "Controls the set of valid plus sign characters when reading an
-external number representation and no explicit :plus-sign keyword
+external number representation and no explicit plus sign keyword
 argument is specified.  Value has to be a sequence of characters.
-Default is ‘+’ (Unicode U+002B, plus sign).")
+The default is ‘+’ (Unicode U+002B, plus sign).")
 (declaim (type sequence-of-characters *default-plus-sign*))
 
 (defvar *default-minus-sign* "-"
   "Controls the set of valid minus sign characters when reading an
-external number representation and no explicit :minus-sign keyword
+external number representation and no explicit minus sign keyword
 argument is specified.  Value has to be a sequence of characters.
-Default is ‘-’ (Unicode U+002D, hyphen-minus).
+The default is ‘-’ (Unicode U+002D, hyphen-minus).
 
 Another candidate for this character set is ‘−’ (Unicode U+2212,
 minus sign).")
@@ -90,9 +90,9 @@ minus sign).")
 
 (defvar *default-group-separator* ()
   "Controls the set of valid group separator characters when reading
-an external number representation and no explicit :group-separator
+an external number representation and no explicit group separator
 keyword argument is specified.  Value has to be a sequence of
-characters.  Default is the empty set.
+characters.  The default is the empty set.
 
 Candidates for this character set are ‘'’ (Unicode U+0027, apostrophe),
 ‘_’ (Unicode U+005F, low line), ‘ ’ (Unicode U+00A0, no-break space),
@@ -103,9 +103,9 @@ separator according to ISO 31 is the narrow no-break space character.")
 (defvar *default-decimal-point* "."
   "Controls the set of valid decimal point (or better radix point),
 characters when reading an external number representation and no
-explicit :decimal-point keyword argument is specified.  Value has
-be a sequence of characters.  Default is ‘.’ (Unicode U+002E, full
-stop).
+explicit ‘decimal-point’ keyword argument is specified.  Value has
+be a sequence of characters.  The default is ‘.’ (Unicode U+002E,
+full stop).
 
 Another candidate for this character set is ‘,’ (Unicode U+002C,
 comma).  ISO 31 uses the decimal point in the international English
@@ -116,9 +116,9 @@ improve usability.")
 
 (defvar *default-exponent-marker* "EeDd" ;f-language
   "Controls the set of valid exponent marker characters when reading
-an external number representation and no explicit :exponent-marker
+an external number representation and no explicit exponent marker
 keyword argument is specified.  Value has to be a sequence of
-characters.  Default is ‘E’, ‘e’, ‘D’, and ‘d’.")
+characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.")
 (declaim (type sequence-of-characters *default-exponent-marker*))
 
 (declaim (inline standard-digit-char-p))
@@ -127,7 +127,7 @@ characters.  Default is ‘E’, ‘e’, ‘D’, and ‘d’.")
 
 First argument CHAR has to be a character object.
 Optional second argument RADIX is an integer between 2 and 36,
- inclusive.  Default is 10.
+ inclusive.  The default is 10.
 
 Return value is the weight of CHAR as an integer, or nil."
   (check-type char character)
