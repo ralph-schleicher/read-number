@@ -31,6 +31,32 @@
 ;; ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;; POSSIBILITY OF SUCH DAMAGE.
 
+;;; Commentary:
+
+;; The portable way to encode an Unicode character is by using the
+;; Babel library.  For example:
+;;
+;;      (defun string-from-octets (sequence &optional (encoding :UTF-8))
+;;        (babel:octets-to-string
+;;         (coerce sequence '(vector (unsigned-byte 8)))
+;;         :encoding encoding))
+;;
+;;      ;; Unicode U+2212, minus sign.
+;;      (string-from-octets #(226 136 146))
+;;
+;; The following table lists various encodings of some interesting
+;; characters.
+;;
+;; | Unicode | UTF-8 Octects |          Lisp Reader          |
+;; |---------|---------------|-------------------------------|
+;; | U+002B  |   43          | #\+ | #\PLUS_SIGN             |
+;; | U+002D  |   45          | #\- | #\HYPHEN-MINUS          |
+;; | U+2212  |  226 136 146  |     | #\MINUS_SIGN            |
+;; | U+0027  |   39          | #\' | #\APOSTROPHE            |
+;; | U+005F  |   95          | #\_ | #\LOW_LINE              |
+;; | U+00A0  |  194 160      |     | #\NO-BREAK_SPACE        |
+;; | U+202F  |  226 128 175  |     | #\NARROW_NO-BREAK_SPACE |
+
 ;;; Code:
 
 (in-package :read-number)
@@ -72,16 +98,17 @@ separator according to ISO 31 is the narrow no-break space character.")
 (declaim (type sequence-of-characters *default-group-separator*))
 
 (defvar *default-decimal-point* "."
-  "Controls the set of valid decimal point characters when reading
-an external number representation.  Value has to be a sequence of
-characters.  Default is ‘.’ (Unicode U+002E, full stop).
+  "Controls the set of valid decimal point (or better radix point),
+characters when reading an external number representation.  Value has
+to be a sequence of characters.  Default is ‘.’ (Unicode U+002E, full
+stop).
 
 Another candidate for this character set is ‘,’ (Unicode U+002C,
 comma).  ISO 31 uses the decimal point in the international English
 version of the standard and the decimal comma in the original French
 version.  Interactive applications should accept both variants to
 improve usability.")
-(declaim (type sequence-of-characters *default-decimal-point*))	
+(declaim (type sequence-of-characters *default-decimal-point*))
 
 (defvar *default-exponent-marker* "EeDd" ;f-language
   "Controls the set of valid exponent marker characters when reading
