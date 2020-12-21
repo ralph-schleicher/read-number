@@ -47,15 +47,16 @@
 ;; The following table lists various encodings of some interesting
 ;; characters.
 ;;
-;; | Unicode | UTF-8 Octects |          Lisp Reader          |
-;; |---------|---------------|-------------------------------|
-;; | U+002B  |   43          | #\+ | #\PLUS_SIGN             |
-;; | U+002D  |   45          | #\- | #\HYPHEN-MINUS          |
-;; | U+2212  |  226 136 146  |     | #\MINUS_SIGN            |
-;; | U+0027  |   39          | #\' | #\APOSTROPHE            |
-;; | U+005F  |   95          | #\_ | #\LOW_LINE              |
-;; | U+00A0  |  194 160      |     | #\NO-BREAK_SPACE        |
-;; | U+202F  |  226 128 175  |     | #\NARROW_NO-BREAK_SPACE |
+;; | Unicode | UTF-8 Octects |           Lisp Reader           |
+;; |---------|---------------|---------------------------------|
+;; | U+002B  |   43          | #\+ | #\PLUS_SIGN               |
+;; | U+002D  |   45          | #\- | #\HYPHEN-MINUS            |
+;; | U+2212  |  226 136 146  |     | #\MINUS_SIGN              |
+;; | U+0027  |   39          | #\' | #\APOSTROPHE              |
+;; | U+005F  |   95          | #\_ | #\LOW_LINE                |
+;; | U+00A0  |  194 160      |     | #\NO-BREAK_SPACE          |
+;; | U+202F  |  226 128 175  |     | #\NARROW_NO-BREAK_SPACE   |
+;; | U+23E8  |  226 143 168  |     | #\DECIMAL_EXPONENT_SYMBOL |
 
 ;;; Code:
 
@@ -118,7 +119,10 @@ improve usability.")
   "Controls the set of valid exponent marker characters when reading
 an external number representation and no explicit exponent marker
 keyword argument is specified.  Value has to be a sequence of
-characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.")
+characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
+
+Another candidate for this character set is ‘⏨’ (Unicode U+23E8,
+decimal exponent symbol).")
 (declaim (type sequence-of-characters *default-exponent-marker*))
 
 (declaim (inline standard-digit-char-p))
