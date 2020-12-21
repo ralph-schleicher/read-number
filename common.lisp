@@ -103,7 +103,7 @@ separator according to ISO 31 is the narrow no-break space character.")
 (defvar *default-decimal-point* "."
   "Controls the set of valid decimal point (or better radix point),
 characters when reading an external number representation and no
-explicit ‘decimal-point’ keyword argument is specified.  Value has
+explicit decimal point keyword argument is specified.  Value has
 be a sequence of characters.  The default is ‘.’ (Unicode U+002E,
 full stop).
 
