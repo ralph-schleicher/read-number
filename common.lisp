@@ -102,9 +102,9 @@ separator according to ISO 31 is the narrow no-break space character.")
 (declaim (type sequence-of-characters *default-group-separator*))
 
 (defvar *default-decimal-point* "."
-  "Controls the set of valid decimal point (or better radix point),
+  "Controls the set of valid decimal point (or better radix point)
 characters when reading an external number representation and no
-explicit decimal point keyword argument is specified.  Value has
+explicit decimal point keyword argument is specified.  Value has to
 be a sequence of characters.  The default is ‘.’ (Unicode U+002E,
 full stop).
 
