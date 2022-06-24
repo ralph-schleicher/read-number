@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
  <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta charset="utf-8"/>
   <title>READ-NUMBER</title>
   <style type="text/css">
    *{margin:0;border:0;padding:0}
@@ -194,9 +193,9 @@ separator according to ISO 31 is the narrow no-break space character.</pre>
      </table>
     </div>
     <div class="documentation">
-     <pre>Controls the set of valid decimal point (or better radix point),
+     <pre>Controls the set of valid decimal point (or better radix point)
 characters when reading an external number representation and no
-explicit decimal point keyword argument is specified.  Value has
+explicit decimal point keyword argument is specified.  Value has to
 be a sequence of characters.  The default is ‘.’ (Unicode U+002E,
 full stop).
 
@@ -228,7 +227,10 @@ improve usability.</pre>
      <pre>Controls the set of valid exponent marker characters when reading
 an external number representation and no explicit exponent marker
 keyword argument is specified.  Value has to be a sequence of
-characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.</pre>
+characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
+
+Another candidate for this character set is ‘⏨’ (Unicode U+23E8,
+decimal exponent symbol).</pre>
     </div>
    </div>
    <div class="definition" id="_d023c279-5abd-5684-a4ee-c2ead05b05bb">
@@ -355,7 +357,7 @@ Keyword argument GROUP-SEPARATOR is a sequence of valid group
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
  of the significand from its fractional part.  The default is the
- is the value of the ‘*default-decimal-point*’ special variable.
+ value of the ‘*default-decimal-point*’ special variable.
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
  significand from the exponent.  It does not specify the data type

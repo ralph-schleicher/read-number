@@ -19,7 +19,7 @@ defined) is reserved for reading any Lisp number representation.
    external number representation and no explicit minus sign keyword
    argument is specified.  Value has to be a sequence of characters.
    The default is ‘-’ (Unicode U+002D, hyphen-minus).
-   
+
    Another candidate for this character set is ‘−’ (Unicode U+2212,
    minus sign).
 
@@ -29,7 +29,7 @@ defined) is reserved for reading any Lisp number representation.
    an external number representation and no explicit group separator
    keyword argument is specified.  Value has to be a sequence of
    characters.  The default is the empty set.
-   
+
    Candidates for this character set are ‘'’ (Unicode U+0027, apostrophe),
    ‘_’ (Unicode U+005F, low line), ‘ ’ (Unicode U+00A0, no-break space),
    and ‘ ’ (Unicode U+202F, narrow no-break space).  The preferred group
@@ -37,12 +37,12 @@ defined) is reserved for reading any Lisp number representation.
 
                                                               [Special Variable]
 *default-decimal-point*
-   Controls the set of valid decimal point (or better radix point),
+   Controls the set of valid decimal point (or better radix point)
    characters when reading an external number representation and no
-   explicit decimal point keyword argument is specified.  Value has
+   explicit decimal point keyword argument is specified.  Value has to
    be a sequence of characters.  The default is ‘.’ (Unicode U+002E,
    full stop).
-   
+
    Another candidate for this character set is ‘,’ (Unicode U+002C,
    comma).  ISO 31 uses the decimal point in the international English
    version of the standard and the decimal comma in the original French
@@ -56,13 +56,16 @@ defined) is reserved for reading any Lisp number representation.
    keyword argument is specified.  Value has to be a sequence of
    characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
 
+   Another candidate for this character set is ‘⏨’ (Unicode U+23E8,
+   decimal exponent symbol).
+
                                                                       [Function]
 read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
               eof-value recursivep &key unsigned-number
               (plus-sign *default-plus-sign*) (minus-sign *default-minus-sign*)
               (group-separator *default-group-separator*) (radix 10))
    Read an integer from an input stream.
-   
+
    Optional first argument INPUT-STREAM is an input stream designator.
     The default is standard input.
    Optional second argument EOF-ERROR-P is a generalized boolean.
@@ -97,19 +100,19 @@ read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
     2 and 36, inclusive.  The default is 10.  Case is not significant for
     the digit characters ‘A’ to ‘Z’ when parsing numbers with a radix
     greater than 10.
-   
+
    Return value is an integer.  Secondary value is the number of
    characters read.
-   
+
    The ‘read-integer’ function expects an optional sign followed by a
    non-empty sequence of digits in the specified radix.  It does not
    recognize a decimal point or exponent marker.  Leading or trailing
    whitespace is not ignored.
-   
+
    If the file ends in the middle of an integer representation,
    ‘read-integer’ signals an ‘end-of-file’ error regardless of
    the value of the EOF-ERROR-P argument.
-   
+
    The result if undefined if the sequences of valid plus and minus
    sign characters intersect.
 
@@ -123,7 +126,7 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
             (float-format *read-default-float-format*) (significand-radix 10)
             (exponent-radix 10) (exponent-base 10))
    Read a floating-point number from an input stream.
-   
+
    Optional first argument INPUT-STREAM is an input stream designator.
     The default is standard input.
    Optional second argument EOF-ERROR-P is a generalized boolean.
@@ -157,7 +160,7 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
    Keyword argument DECIMAL-POINT is a sequence of valid decimal point
     characters.  The decimal point is used to separate the integer part
     of the significand from its fractional part.  The default is the
-    is the value of the ‘*default-decimal-point*’ special variable.
+    value of the ‘*default-decimal-point*’ special variable.
    Keyword argument EXPONENT-MARKER is a sequence of valid exponent
     marker characters.  The exponent marker is used to separate the
     significand from the exponent.  It does not specify the data type
@@ -175,23 +178,23 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
     parsing numbers with a radix greater than 10.
    Keyword argument EXPONENT-BASE is the base of the power term.  Value
     has to be an integer greater than or equal to 2.  The default is 10.
-   
+
    Return value is a floating-point number of type FLOAT-FORMAT iff a
    decimal point or exponent part is present and FLOAT-FORMAT is not
    null.  Otherwise, value is a rational number.  Secondary value is
    the number of characters read.
-   
+
    The ‘read-float’ function expects an optional sign followed by a
    non-empty sequence of digits.  It does recognize a decimal point and
    an exponent part.  Leading or trailing whitespace is not ignored.
-   
+
    If the file ends in the middle of a floating-point number
    representation, ‘read-float’ signals an ‘end-of-file’ error
    regardless of the value of the EOF-ERROR-P argument.
-   
+
    Converting a floating-point number to the specified FLOAT-FORMAT
    type may signal an ‘arithmetic-error’ condition, for example, a
    ‘floating-point-overflow’ or ‘floating-point-underflow’ error.
-   
+
    The result if undefined if the sequences of valid plus and minus
    sign characters intersect.
