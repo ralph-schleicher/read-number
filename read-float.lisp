@@ -86,7 +86,7 @@ Keyword argument GROUP-SEPARATOR is a sequence of valid group
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
  of the significand from its fractional part.  The default is the
- is the value of the ‘*default-decimal-point*’ special variable.
+ value of the ‘*default-decimal-point*’ special variable.
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
  significand from the exponent.  It does not specify the data type
