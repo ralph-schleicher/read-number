@@ -35,6 +35,7 @@
 
 PACKAGE = read-number
 VERSION = 20220624.1809
+TARNAME := $(PACKAGE)-$(VERSION)
 
 ### Rules
 
@@ -57,6 +58,18 @@ check: all
 .PHONY: doc
 doc:
 	sbcl --non-interactive --load generate-doc.lisp
+
+.PHONY: tag
+tag: all
+	@if test 0 != `svn status -q | grep -v "^ " | wc -l` ; then \
+	    echo "Working copy is not clean" >&2 ; \
+	    exit 1 ; \
+	fi
+	@if svn info "^/tags/$(TARNAME)" > /dev/null 2>&1 ; then \
+	    echo "Tag already exists" >&2 ; \
+	    exit 1 ; \
+	fi
+	svn copy "^/trunk" "^/tags/$(TARNAME)" -m "Version $(VERSION)."
 
 .PHONY: sync
 sync: all
