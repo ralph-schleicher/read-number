@@ -1,4 +1,4 @@
-## GNUmakefile --- reading numbers from an input stream.
+## GNUmakefile --- reading numbers from an input stream
 
 # Copyright (C) 2020 Ralph Schleicher
 

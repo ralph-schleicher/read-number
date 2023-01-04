@@ -1,4 +1,4 @@
-;;; read-integer.lisp --- read an integral number.
+;;; read-integer.lisp --- read an integral number
 
 ;; Copyright (C) 2016 Ralph Schleicher
 

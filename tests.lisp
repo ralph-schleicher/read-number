@@ -1,4 +1,4 @@
-;;; tests.lisp --- test procedure.
+;;; tests.lisp --- test procedure
 
 ;; Copyright (C) 2016 Ralph Schleicher
 

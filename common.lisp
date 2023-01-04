@@ -1,4 +1,4 @@
-;;; common.lisp --- common definitions.
+;;; common.lisp --- common definitions
 
 ;; Copyright (C) 2016 Ralph Schleicher
 

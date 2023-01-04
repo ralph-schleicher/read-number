@@ -1,4 +1,4 @@
-;;; read-float.lisp --- read a floating-point number.
+;;; read-float.lisp --- read a floating-point number
 
 ;; Copyright (C) 2016 Ralph Schleicher
 

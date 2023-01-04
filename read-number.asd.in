@@ -1,4 +1,4 @@
-;;; read-number.asd --- reading numbers from an input stream.
+;;; read-number.asd --- reading numbers from an input stream
 
 ;; Copyright (C) 2016 Ralph Schleicher
 

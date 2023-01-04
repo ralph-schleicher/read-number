@@ -1,4 +1,4 @@
-;;; read-number.asd --- reading numbers from an input stream.
+;;; read-number.asd --- reading numbers from an input stream
 
 ;; Copyright (C) 2016 Ralph Schleicher
 
@@ -39,7 +39,7 @@
   :description "Reading numbers from an input stream."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20201220.1841"
+  :version "20220624.1809"
   :depends-on (:alexandria :lisp-unit)
   :serial t
   :components ((:file "package")

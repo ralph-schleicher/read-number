@@ -1,4 +1,4 @@
-;;; generate-doc.lisp --- generate documentation.
+;;; generate-doc.lisp --- generate documentation
 
 ;; Copyright (C) 2015 Ralph Schleicher
 
