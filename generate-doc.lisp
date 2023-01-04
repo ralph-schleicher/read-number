@@ -43,6 +43,7 @@
 		 read-number:*default-group-separator*
 		 read-number:*default-decimal-point*
 		 read-number:*default-exponent-marker*
+		 read-number:*calculation-timeout*
 		 read-number:read-integer
 		 read-number:read-float)))
   (rs-doc:generate-doc

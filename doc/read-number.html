@@ -80,6 +80,12 @@ defined) is reserved for reading any Lisp number representation.</pre>
       </a>
      </li>
      <li>
+      <a href="#_656bd613-d09f-5e9c-abd2-a6571c786ef8">
+       <span class="category">Special Variable</span>
+       <span class="symbol">*calculation-timeout*</span>
+      </a>
+     </li>
+     <li>
       <a href="#_d023c279-5abd-5684-a4ee-c2ead05b05bb">
        <span class="category">Function</span>
        <span class="symbol">read-integer</span>
@@ -231,6 +237,38 @@ characters.  The default is ‘E’, ‘e’, ‘D’, and ‘d’.
 
 Another candidate for this character set is ‘⏨’ (Unicode U+23E8,
 decimal exponent symbol).</pre>
+    </div>
+   </div>
+   <div class="definition" id="_656bd613-d09f-5e9c-abd2-a6571c786ef8">
+    <div class="signature">
+     <table class="signature">
+      <colgroup>
+       <col />
+       <col />
+       <col />
+      </colgroup>
+      <tbody>
+       <tr>
+	<td class="symbol"><a href="#contents"><span class="symbol">*calculation-timeout*</span></a></td>
+	<td class="lambda-list"></td>
+	<td class="category"><span class="category">Special Variable</span></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="documentation">
+     <pre>Period of time allowed to elapse before a calculation is aborted.
+Value has to be a non-negative number.  A value of zero means to
+disable timeouts, i.e. a calculation can take any time.  This is
+the default.  Time is measured in seconds.
+
+A calculation timeout is a safety mechanism when reading a number
+from an untrustworthy source.  For example, the number 1E+1000000
+is syntactically correct but requires quite some CPU cycles to
+represent it as a Lisp object.
+
+If a calculation timeout occurs, an error of type ‘arithmetic-error’
+is signaled.</pre>
     </div>
    </div>
    <div class="definition" id="_d023c279-5abd-5684-a4ee-c2ead05b05bb">
