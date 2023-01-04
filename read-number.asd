@@ -33,14 +33,17 @@
 
 ;;; Code:
 
-(in-package :common-lisp-user)
+(in-package :asdf-user)
 
-(asdf:defsystem :read-number
+(defsystem "read-number"
   :description "Reading numbers from an input stream."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
-  :version "20220624.1809"
-  :depends-on (:alexandria :lisp-unit)
+  :version "20230104.1930"
+  :depends-on (:alexandria
+	       #-sbcl
+	       :bordeaux-threads
+	       :lisp-unit)
   :serial t
   :components ((:file "package")
 	       (:file "common")
