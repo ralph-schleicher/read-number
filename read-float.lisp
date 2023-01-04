@@ -137,7 +137,11 @@ sign characters intersect."
 	(exp 0)
 	float)
        ;; Result.
-       (let ((val (* (+ int frac) (expt base exp))))
+       (let ((val (with-timeout *calculation-timeout*
+		      (* (+ int frac) (expt base exp))
+		    (error 'arithmetic-error
+			   :operation 'eval
+			   :operands `('(* (+ ,int ,frac) (expt ,base ,exp)))))))
 	 (when (and float float-format)
 	   (setf val (coerce val float-format)))
 	 (if (char= sign #\-) (- val) val)))
@@ -166,7 +170,11 @@ sign characters intersect."
       (let ((start digits))
 	(setf frac (read-int significand-radix group-separator))
 	(when (> digits start)
-	  (setf frac (/ frac (expt significand-radix (- digits start)))))
+	  (setf frac (with-timeout *calculation-timeout*
+			 (/ frac (expt significand-radix (- digits start)))
+		       (error 'arithmetic-error
+			      :operation 'eval
+			      :operands `('(/ ,frac (expt ,significand-radix ,(- digits start))))))))
 	(when (null next-char)
 	  (quit))))
     ;; Need at least one digit.
