@@ -272,6 +272,7 @@ is signaled.")
 	     (form-body)))))
   ;; No implementation.
   (defmacro with-timeout (seconds form &body handler)
+    (declare (ignore seconds handler))
     form))
 
 (setf (documentation 'with-timeout 'function)
