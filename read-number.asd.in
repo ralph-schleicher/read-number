@@ -40,7 +40,10 @@
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
   :version "@VERSION@"
-  :depends-on (:alexandria :lisp-unit)
+  :depends-on (:alexandria
+	       #-sbcl
+	       :bordeaux-threads
+	       :lisp-unit)
   :serial t
   :components ((:file "package")
 	       (:file "common")
