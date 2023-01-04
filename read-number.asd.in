@@ -33,9 +33,9 @@
 
 ;;; Code:
 
-(in-package :common-lisp-user)
+(in-package :asdf-user)
 
-(asdf:defsystem :read-number
+(defsystem "read-number"
   :description "Reading numbers from an input stream."
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
