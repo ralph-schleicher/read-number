@@ -59,21 +59,6 @@ defined) is reserved for reading any Lisp number representation.
    Another candidate for this character set is ‘⏨’ (Unicode U+23E8,
    decimal exponent symbol).
 
-                                                              [Special Variable]
-*calculation-timeout*
-   Period of time allowed to elapse before a calculation is aborted.
-   Value has to be a non-negative number.  A value of zero means to
-   disable timeouts, i.e. a calculation can take any time.  This is
-   the default.  Time is measured in seconds.
-
-   A calculation timeout is a safety mechanism when reading a number
-   from an untrustworthy source.  For example, the number 1E+1000000
-   is syntactically correct but requires quite some CPU cycles to
-   represent it as a Lisp object.
-
-   If a calculation timeout occurs, an error of type ‘arithmetic-error’
-   is signaled.
-
                                                                       [Function]
 read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
               eof-value recursivep &key unsigned-number

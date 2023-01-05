@@ -34,7 +34,7 @@
 ## Code:
 
 PACKAGE = read-number
-VERSION = 20230104.1930
+VERSION = 20230105.1030
 TARNAME := $(PACKAGE)-$(VERSION)
 
 ### Rules

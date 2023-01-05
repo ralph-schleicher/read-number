@@ -42,7 +42,6 @@
 	   #:*default-group-separator*
 	   #:*default-decimal-point*
 	   #:*default-exponent-marker*
-	   #:*calculation-timeout*
 	   #:read-integer
 	   #:read-float)
   (:documentation

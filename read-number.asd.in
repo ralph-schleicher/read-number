@@ -41,8 +41,6 @@
   :license "Modified BSD License"
   :version "@VERSION@"
   :depends-on (:alexandria
-	       #-sbcl
-	       :bordeaux-threads
 	       :lisp-unit)
   :serial t
   :components ((:file "package")
