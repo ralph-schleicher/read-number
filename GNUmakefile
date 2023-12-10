@@ -33,21 +33,17 @@
 
 ## Code:
 
-PACKAGE = read-number
-VERSION = 20230105.1030
+PACKAGE := read-number
+VERSION := $(shell cat VERSION)
 TARNAME := $(PACKAGE)-$(VERSION)
 
 ### Rules
-
-%: %.in
-	sed -e 's/@PACKAGE@/$(PACKAGE)/g' \
-	    -e 's/@VERSION@/$(VERSION)/g' $< > $@~ && mv -f $@~ $@
 
 %.html: %.md
 	markdown $< > $@~ && mv -f $@~ $@
 
 .PHONY: all
-all: $(PACKAGE).asd README.html
+all: README.html
 
 .PHONY: check
 check: all
@@ -74,13 +70,5 @@ tag: all
 .PHONY: sync
 sync: all
 	~/src/github/github.sh $(PACKAGE)
-
-# local variables:
-# time-stamp-line-limit: 0
-# time-stamp-time-zone: "UTC"
-# time-stamp-format: "%:y%02m%02d.%02H%02M"
-# time-stamp-start: "^VERSION\\s-*=\\s-*"
-# time-stamp-end: "\n"
-# end:
 
 ## GNUmakefile ends here
