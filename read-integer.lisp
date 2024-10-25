@@ -95,7 +95,7 @@ If the file ends in the middle of an integer representation,
 ‘read-integer’ signals an ‘end-of-file’ error regardless of
 the value of the EOF-ERROR-P argument.
 
-The result if undefined if the sequences of valid plus and minus
+The result is undefined if the sequences of valid plus and minus
 sign characters intersect."
   (check-type radix (integer 2 36))
   (with-input-from (input-stream eof-error-p eof-value recursivep)
