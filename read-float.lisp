@@ -122,7 +122,7 @@ Converting a floating-point number to the specified FLOAT-FORMAT
 type may signal an ‘arithmetic-error’ condition, for example, a
 ‘floating-point-overflow’ or ‘floating-point-underflow’ error.
 
-The result if undefined if the sequences of valid plus and minus
+The result is undefined if the sequences of valid plus and minus
 sign characters intersect."
   (check-type float-format (member short-float single-float double-float long-float nil))
   (check-type significand-radix (integer 2 36))
