@@ -35,13 +35,12 @@
 
 (in-package :common-lisp-user)
 
-(quicklisp:quickload :lisp-unit)
-(quicklisp:quickload :read-number)
-
 (defpackage :read-number-tests
   (:use :common-lisp
 	:lisp-unit
-	:read-number))
+	:read-number)
+  (:export
+   #:main))
 
 (in-package :read-number-tests)
 
@@ -233,6 +232,10 @@
   (assert-true (try #'read-float '("10_00._00_05" t nil nil :group-separator "_") 1000 :next-char #\_))
   (values))
 
-(run-tests)
+(defun main (&optional (tests :all))
+  (let ((lisp-unit:*print-errors* t)
+        (lisp-unit:*print-failures* t)
+        (lisp-unit:*print-summary* t))
+    (run-tests tests :read-number-tests)))
 
 ;;; tests.lisp ends here
