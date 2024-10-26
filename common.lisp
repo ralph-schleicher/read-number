@@ -138,6 +138,9 @@ Return value is the weight of CHAR as an integer, or nil."
   (and (standard-char-p char)
        (digit-char-p char radix)))
 
+(define-condition syntax-error (parse-error stream-error)
+  ())
+
 (defmacro with-input-from ((input-stream eof-error-p eof-value recursivep) (bindings result) &body body)
   "Framework for reading numbers.  The local bindings available in BODY
 are documented below.
@@ -167,73 +170,77 @@ are documented below.
  -- read-int (RADIX GROUP-SEPARATOR)                          [Function]
      Read a sequence of digits and return its numerical value.
      May call ‘next-char’ and ‘quit’.  Maybe modifies ‘digits’."
-  (alexandria:once-only (input-stream eof-error-p eof-value recursivep
-			 ;; The actual group separator.
-			 (group-separator-char nil)
-			 ;; The global parser state, non-null indicates
-			 ;; a parse error.
-			 (state nil))
-    `(prog (next-char
-	    (length 0)
-	    (digits 0)
-	    ,@bindings)
-	(labels ((next-char (&optional (eof-quit-p t))
-		   "Read the next character from INPUT-STREAM."
-		   (setf next-char (read-char ,input-stream nil nil ,recursivep))
-		   (if (null next-char)
-		       (when eof-quit-p
-			 (quit))
-		     (incf length))
-		   next-char)
-		 (quit ()
-		   "Return the resulting number, or signal an error."
-		   (when next-char
-		     (unread-char next-char ,input-stream)
-		     (decf length))
-		   (when (or (= digits 0) ,state)
-		     (when next-char
-		       (error 'parse-error :stream ,input-stream))
-		     ;; Always signal an end-of-file error when the file
-		     ;; ends in the middle of an object.
-		     (when (or (> length 0) ,eof-error-p)
-		       (error 'end-of-file :stream ,input-stream))
-		     (return (values ,eof-value length)))
-		   (return (values ,result length)))
-		 (read-int (radix group-separator)
-		   "Read a sequence of digits."
-		   (check-type radix (integer 2 36))
-		   (let ((value 0)
-			 ;; Save global parser state.  Will be
-			 ;; restored if no parse error occurs.
-			 (state ,state))
-		     (setf ,state nil)
-		     (let (digit)
-		       (loop (cond ((and (eq ,state :digit)
-					 (if (not (null ,group-separator-char))
-					     (char= next-char ,group-separator-char)
-					   (when (find next-char group-separator :test #'char=)
-					     (setf ,group-separator-char next-char))))
-				    (setf ,state :group-separator)
-				    (next-char))
-				   (t
-				    (setf digit (standard-digit-char-p next-char radix))
-				    (when (null digit)
-				      (return))
-				    (setf ,state :digit)
-				    (setf value (+ (* value radix) digit))
-				    (incf digits)
-				    (next-char nil)
-				    (when (null next-char)
-				      (return))))))
-		     (when (eq ,state :group-separator)
-		       (quit))
-		     (setf ,state state)
-		     value)))
-	  ;; Read first character.
-	  (next-char)
-	  ;; Parse the number.
-	  ,@body
-	  ;; Done.
-	  (quit)))))
+  (alexandria:once-only (input-stream
+                         eof-error-p eof-value recursivep
+                         ;; The actual group separator.
+	                 (group-separator-char nil)
+	                 ;; The global parser state, non-null indicates
+	                 ;; a parse error.
+	                 (state nil))
+    `(let (next-char
+	   (length 0)
+	   (digits 0)
+	   ,@bindings)
+       (catch 'quit
+	 (labels ((quit ()
+                    (throw 'quit nil))
+	          (next-char (&optional (eof-quit-p t))
+		    "Read the next character from INPUT-STREAM."
+		    (setf next-char (read-char ,input-stream nil nil ,recursivep))
+		    (if (null next-char)
+		        (when eof-quit-p
+		          (quit))
+		      (incf length))
+		    next-char)
+	          (read-int (radix group-separator)
+		    "Read a sequence of digits."
+		    (declare (type fixnum radix))
+		    (let ((value 0)
+		          ;; Save global parser state.  Will be
+		          ;; restored if no parse error occurs.
+		          (state ,state))
+		      (setf ,state nil)
+		      (let (digit)
+		        (loop (cond ((and (eq ,state :digit)
+				          (if (not (null ,group-separator-char))
+					      (char= next-char ,group-separator-char)
+					    (when (find next-char group-separator :test #'char=)
+					      (setf ,group-separator-char next-char))))
+				     (setf ,state :group-separator)
+				     (next-char))
+				    (t
+				     (setf digit (standard-digit-char-p next-char radix))
+				     (when (null digit)
+				       (return))
+				     (setf ,state :digit)
+				     (setf value (+ (* value radix) digit))
+				     (incf digits)
+				     (next-char nil)
+				     (when (null next-char)
+				       (return))))))
+		      (when (eq ,state :group-separator)
+		        (quit))
+		      (setf ,state state)
+		      value)))
+	   ;; Read first character.
+	   (next-char)
+	   ;; Parse the number.
+	   ,@body))
+       ;; Done.
+       (when next-char
+	 (unread-char next-char ,input-stream)
+	 (decf length))
+       ;; Return the resulting number, or signal an error.
+       (values (if (or (= digits 0) ,state)
+                   (progn
+                     (when next-char
+                       (error 'syntax-error :stream ,input-stream))
+	             ;; Always signal an end-of-file error when the file
+	             ;; ends in the middle of an object.
+	             (when (or (> length 0) ,eof-error-p)
+	               (error 'end-of-file :stream ,input-stream))
+	             ,eof-value)
+                 ,result)
+               length))))
 
 ;;; common.lisp ends here
