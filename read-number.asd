@@ -40,12 +40,21 @@
   :author "Ralph Schleicher <rs@ralph-schleicher.de>"
   :license "Modified BSD License"
   :version (:read-file-line "VERSION")
-  :depends-on ("alexandria"
-	       "lisp-unit")
+  :depends-on ("alexandria")
   :serial t
   :components ((:file "package")
 	       (:file "common")
 	       (:file "read-integer")
-	       (:file "read-float")))
+	       (:file "read-float"))
+  :in-order-to ((test-op (test-op "read-number/tests"))))
+
+(defsystem "read-number/tests"
+  :description "Test suite for the ‘read-number’ system."
+  :author "Ralph Schleicher <rs@ralph-schleicher.de>"
+  :license "Modified BSD License"
+  :depends-on ("lisp-unit"
+               "read-number")
+  :components ((:file "tests"))
+  :perform (test-op (o c) (symbol-call :read-number-tests :main)))
 
 ;;; read-number.asd ends here
