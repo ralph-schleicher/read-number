@@ -1,4 +1,4 @@
-;;; package.lisp --- package definition
+;;; packages.lisp --- package definitions
 
 ;; Copyright (C) 2016 Ralph Schleicher
 
@@ -51,4 +51,4 @@ The ‘read-integer’ and ‘read-float’ functions are designed to read
 external number representations.  The ‘read-number’ function (to be
 defined) is reserved for reading any Lisp number representation."))
 
-;;; package.lisp ends here
+;;; packages.lisp ends here

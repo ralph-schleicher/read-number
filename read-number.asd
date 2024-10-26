@@ -42,7 +42,7 @@
   :version (:read-file-line "VERSION")
   :depends-on ("alexandria")
   :serial t
-  :components ((:file "package")
+  :components ((:file "packages")
 	       (:file "common")
 	       (:file "read-integer")
 	       (:file "read-float"))
