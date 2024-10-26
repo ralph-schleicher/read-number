@@ -37,6 +37,10 @@ PACKAGE := read-number
 VERSION := $(shell head -n1 VERSION)
 TARNAME := $(PACKAGE)-$(VERSION)
 
+system_SOURCES := $(PACKAGE).asd \
+$(shell grep -E -e ':file +"' $(PACKAGE).asd | \
+        sed -E -e 's;.*:file +";;' -e 's;".*;.lisp;')
+
 ### Rules
 
 %.html: %.md
@@ -46,10 +50,15 @@ TARNAME := $(PACKAGE)-$(VERSION)
 all: README.html
 
 .PHONY: check
-check: all
+check: check-build
+	sbcl --non-interactive --eval '(asdf:test-system "$(PACKAGE)")' 2>&1 | tee asdf-test-system-sbcl.log
+	ccl --batch --eval '(asdf:test-system "$(PACKAGE)")' < /dev/null 2>&1 | tee asdf-test-system-ccl.log
+
+.PHONY: check-build
+check-build: quicklisp-check-build.stamp
+quicklisp-check-build.stamp: $(system_SOURCES)
 	quicklisp-check-build -sbcl -ccl $(PACKAGE)
-	sbcl --non-interactive --eval '(asdf:test-system "$(PACKAGE)")'
-	ccl --batch --eval '(asdf:test-system "$(PACKAGE)")' < /dev/null
+	echo timestamp > $@
 
 ### Maintenance
 
