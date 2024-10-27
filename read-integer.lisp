@@ -76,7 +76,7 @@ Keyword argument GROUP-SEPARATOR is a sequence of valid group
  separator characters.  The group separator is used to separate the
  digits of a number into groups.  The default is the value of the
  ‘*default-group-separator*’ special variable.  The group separator
- of a number can not change, i.e. the first matching group separator
+ of a number cannot change, i.e. the first matching group separator
  fixes the group separator for the rest of the number.
 Keyword argument RADIX is a radix.  Value has to be an integer between
  2 and 36, inclusive.  The default is 10.  Case is not significant for
