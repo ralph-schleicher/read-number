@@ -60,10 +60,8 @@ defined) is reserved for reading any Lisp number representation.
    decimal exponent symbol).
 
                                                                       [Function]
-read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
-              eof-value recursivep &key unsigned-number
-              (plus-sign *default-plus-sign*) (minus-sign *default-minus-sign*)
-              (group-separator *default-group-separator*) (radix 10))
+read-integer (&optional input-stream eof-error-p eof-value recursivep &key
+              unsigned-number plus-sign minus-sign group-separator radix)
    Read an integer from an input stream.
 
    Optional first argument INPUT-STREAM is an input stream designator.
@@ -94,7 +92,7 @@ read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
     separator characters.  The group separator is used to separate the
     digits of a number into groups.  The default is the value of the
     ‘*default-group-separator*’ special variable.  The group separator
-    of a number can not change, i.e. the first matching group separator
+    of a number cannot change, i.e. the first matching group separator
     fixes the group separator for the rest of the number.
    Keyword argument RADIX is a radix.  Value has to be an integer between
     2 and 36, inclusive.  The default is 10.  Case is not significant for
@@ -113,18 +111,14 @@ read-integer (&optional (input-stream *standard-input*) (eof-error-p t)
    ‘read-integer’ signals an ‘end-of-file’ error regardless of
    the value of the EOF-ERROR-P argument.
 
-   The result if undefined if the sequences of valid plus and minus
+   The result is undefined if the sequences of valid plus and minus
    sign characters intersect.
 
                                                                       [Function]
-read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
-            recursivep &key unsigned-number (plus-sign *default-plus-sign*)
-            (minus-sign *default-minus-sign*)
-            (group-separator *default-group-separator*)
-            (decimal-point *default-decimal-point*)
-            (exponent-marker *default-exponent-marker*)
-            (float-format *read-default-float-format*) (significand-radix 10)
-            (exponent-radix 10) (exponent-base 10))
+read-float (&optional input-stream eof-error-p eof-value recursivep &key
+            unsigned-number plus-sign minus-sign group-separator decimal-point
+            exponent-marker float-format significand-radix exponent-radix
+            exponent-base)
    Read a floating-point number from an input stream.
 
    Optional first argument INPUT-STREAM is an input stream designator.
@@ -155,7 +149,7 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
     separator characters.  The group separator is used to separate the
     digits of a number into groups.  The default is the value of the
     ‘*default-group-separator*’ special variable.  The group separator
-    of a number can not change, i.e. the first matching group separator
+    of a number cannot change, i.e. the first matching group separator
     fixes the group separator for the rest of the number.
    Keyword argument DECIMAL-POINT is a sequence of valid decimal point
     characters.  The decimal point is used to separate the integer part
@@ -196,5 +190,5 @@ read-float (&optional (input-stream *standard-input*) (eof-error-p t) eof-value
    type may signal an ‘arithmetic-error’ condition, for example, a
    ‘floating-point-overflow’ or ‘floating-point-underflow’ error.
 
-   The result if undefined if the sequences of valid plus and minus
+   The result is undefined if the sequences of valid plus and minus
    sign characters intersect.

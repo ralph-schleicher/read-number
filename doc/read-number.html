@@ -22,6 +22,7 @@
    span.method-specializers{color:#616161}
    span.method-specializer{color:#212121;white-space:nowrap}
    span.method-qualifier{color:#212121;white-space:nowrap}
+   span.error{color:#f57c00}
    div.contents{padding:1em}
    div.contents-listing{padding:1em}
    div.contents-listing ul{list-style-type:none}
@@ -41,7 +42,7 @@
   <div class="prologue">
    <pre>Reading numbers from an input stream without using the Lisp reader.
 
-The ‘read-integer’ and ‘read-float’ functions are designed to read
+The ‘<a href="#jky32s8h"><span class="symbol">read-integer</span></a>’ and ‘<a href="#y8h2eqpn"><span class="symbol">read-float</span></a>’ functions are designed to read
 external number representations.  The ‘read-number’ function (to be
 defined) is reserved for reading any Lisp number representation.</pre>
   </div>
@@ -50,43 +51,43 @@ defined) is reserved for reading any Lisp number representation.</pre>
    <div class="contents-listing">
     <ul>
      <li>
-      <a href="#_ab496154-d21c-52fb-89d7-964d6595a831">
+      <a href="#kk5ncx2r">
        <span class="category">Special Variable</span>
        <span class="symbol">*default-plus-sign*</span>
       </a>
      </li>
      <li>
-      <a href="#_6cfd1cc6-a43e-5ad8-bd23-8bba79da6b72">
+      <a href="#bpdr3zr8">
        <span class="category">Special Variable</span>
        <span class="symbol">*default-minus-sign*</span>
       </a>
      </li>
      <li>
-      <a href="#_7b63a687-2ff0-5557-81fa-348768338def">
+      <a href="#h2a4ij2e">
        <span class="category">Special Variable</span>
        <span class="symbol">*default-group-separator*</span>
       </a>
      </li>
      <li>
-      <a href="#_9ab49635-1463-5981-8697-e9695f928785">
+      <a href="#kmiczee8">
        <span class="category">Special Variable</span>
        <span class="symbol">*default-decimal-point*</span>
       </a>
      </li>
      <li>
-      <a href="#_7f502cd8-70ad-5a2d-abe9-8be9f46d55f2">
+      <a href="#wdd5ur84">
        <span class="category">Special Variable</span>
        <span class="symbol">*default-exponent-marker*</span>
       </a>
      </li>
      <li>
-      <a href="#_d023c279-5abd-5684-a4ee-c2ead05b05bb">
+      <a href="#jky32s8h">
        <span class="category">Function</span>
        <span class="symbol">read-integer</span>
       </a>
      </li>
      <li>
-      <a href="#_38be1db9-08e5-5fb9-9df5-975460517ee6">
+      <a href="#y8h2eqpn">
        <span class="category">Function</span>
        <span class="symbol">read-float</span>
       </a>
@@ -95,7 +96,7 @@ defined) is reserved for reading any Lisp number representation.</pre>
    </div>
   </div>
   <div class="dictionary">
-   <div class="definition" id="_ab496154-d21c-52fb-89d7-964d6595a831">
+   <div class="definition" id="kk5ncx2r">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -119,7 +120,7 @@ argument is specified.  Value has to be a sequence of characters.
 The default is ‘+’ (Unicode U+002B, plus sign).</pre>
     </div>
    </div>
-   <div class="definition" id="_6cfd1cc6-a43e-5ad8-bd23-8bba79da6b72">
+   <div class="definition" id="bpdr3zr8">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -146,7 +147,7 @@ Another candidate for this character set is ‘−’ (Unicode U+2212,
 minus sign).</pre>
     </div>
    </div>
-   <div class="definition" id="_7b63a687-2ff0-5557-81fa-348768338def">
+   <div class="definition" id="h2a4ij2e">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -175,7 +176,7 @@ and ‘ ’ (Unicode U+202F, narrow no-break space).  The preferred group
 separator according to ISO 31 is the narrow no-break space character.</pre>
     </div>
    </div>
-   <div class="definition" id="_9ab49635-1463-5981-8697-e9695f928785">
+   <div class="definition" id="kmiczee8">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -206,7 +207,7 @@ version.  Interactive applications should accept both variants to
 improve usability.</pre>
     </div>
    </div>
-   <div class="definition" id="_7f502cd8-70ad-5a2d-abe9-8be9f46d55f2">
+   <div class="definition" id="wdd5ur84">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -233,7 +234,7 @@ Another candidate for this character set is ‘⏨’ (Unicode U+23E8,
 decimal exponent symbol).</pre>
     </div>
    </div>
-   <div class="definition" id="_d023c279-5abd-5684-a4ee-c2ead05b05bb">
+   <div class="definition" id="jky32s8h">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -244,7 +245,7 @@ decimal exponent symbol).</pre>
       <tbody>
        <tr>
 	<td class="symbol"><a href="#contents"><span class="symbol">read-integer</span></a></td>
-	<td class="lambda-list"><span class="lambda-list">(<span class="lambda-list-keyword">&amp;optional</span> (<span class="variable">input-stream</span>&nbsp;<span class="init-form">*standard-input*</span>) (<span class="variable">eof-error-p</span>&nbsp;<span class="init-form">t</span>) <span class="variable">eof-value</span> <span class="variable">recursivep</span> <span class="lambda-list-keyword">&amp;key</span> <span class="variable">unsigned-number</span> (<span class="variable">plus-sign</span>&nbsp;<span class="init-form">*default-plus-sign*</span>) (<span class="variable">minus-sign</span>&nbsp;<span class="init-form">*default-minus-sign*</span>) (<span class="variable">group-separator</span>&nbsp;<span class="init-form">*default-group-separator*</span>) (<span class="variable">radix</span>&nbsp;<span class="init-form">10</span>))</span></td>
+	<td class="lambda-list"><span class="lambda-list">(<span class="lambda-list-keyword">&amp;optional</span> <span class="variable">input-stream</span> <span class="variable">eof-error-p</span> <span class="variable">eof-value</span> <span class="variable">recursivep</span> <span class="lambda-list-keyword">&amp;key</span> <span class="variable">unsigned-number</span> <span class="variable">plus-sign</span> <span class="variable">minus-sign</span> <span class="variable">group-separator</span> <span class="variable">radix</span>)</span></td>
 	<td class="category"><span class="category">Function</span></td>
        </tr>
       </tbody>
@@ -271,17 +272,17 @@ Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is the value of the ‘*default-plus-sign*’ special
+ The default is the value of the ‘<a href="#kk5ncx2r"><span class="symbol">*default-plus-sign*</span></a>’ special
  variable.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is the value of the ‘*default-minus-sign*’ special
+ The default is the value of the ‘<a href="#bpdr3zr8"><span class="symbol">*default-minus-sign*</span></a>’ special
  variable.
 Keyword argument GROUP-SEPARATOR is a sequence of valid group
  separator characters.  The group separator is used to separate the
  digits of a number into groups.  The default is the value of the
- ‘*default-group-separator*’ special variable.  The group separator
- of a number can not change, i.e. the first matching group separator
+ ‘<a href="#h2a4ij2e"><span class="symbol">*default-group-separator*</span></a>’ special variable.  The group separator
+ of a number cannot change, i.e. the first matching group separator
  fixes the group separator for the rest of the number.
 Keyword argument RADIX is a radix.  Value has to be an integer between
  2 and 36, inclusive.  The default is 10.  Case is not significant for
@@ -300,11 +301,11 @@ If the file ends in the middle of an integer representation,
 ‘read-integer’ signals an ‘end-of-file’ error regardless of
 the value of the EOF-ERROR-P argument.
 
-The result if undefined if the sequences of valid plus and minus
+The result is undefined if the sequences of valid plus and minus
 sign characters intersect.</pre>
     </div>
    </div>
-   <div class="definition" id="_38be1db9-08e5-5fb9-9df5-975460517ee6">
+   <div class="definition" id="y8h2eqpn">
     <div class="signature">
      <table class="signature">
       <colgroup>
@@ -315,7 +316,7 @@ sign characters intersect.</pre>
       <tbody>
        <tr>
 	<td class="symbol"><a href="#contents"><span class="symbol">read-float</span></a></td>
-	<td class="lambda-list"><span class="lambda-list">(<span class="lambda-list-keyword">&amp;optional</span> (<span class="variable">input-stream</span>&nbsp;<span class="init-form">*standard-input*</span>) (<span class="variable">eof-error-p</span>&nbsp;<span class="init-form">t</span>) <span class="variable">eof-value</span> <span class="variable">recursivep</span> <span class="lambda-list-keyword">&amp;key</span> <span class="variable">unsigned-number</span> (<span class="variable">plus-sign</span>&nbsp;<span class="init-form">*default-plus-sign*</span>) (<span class="variable">minus-sign</span>&nbsp;<span class="init-form">*default-minus-sign*</span>) (<span class="variable">group-separator</span>&nbsp;<span class="init-form">*default-group-separator*</span>) (<span class="variable">decimal-point</span>&nbsp;<span class="init-form">*default-decimal-point*</span>) (<span class="variable">exponent-marker</span>&nbsp;<span class="init-form">*default-exponent-marker*</span>) (<span class="variable">float-format</span>&nbsp;<span class="init-form">*read-default-float-format*</span>) (<span class="variable">significand-radix</span>&nbsp;<span class="init-form">10</span>) (<span class="variable">exponent-radix</span>&nbsp;<span class="init-form">10</span>) (<span class="variable">exponent-base</span>&nbsp;<span class="init-form">10</span>))</span></td>
+	<td class="lambda-list"><span class="lambda-list">(<span class="lambda-list-keyword">&amp;optional</span> <span class="variable">input-stream</span> <span class="variable">eof-error-p</span> <span class="variable">eof-value</span> <span class="variable">recursivep</span> <span class="lambda-list-keyword">&amp;key</span> <span class="variable">unsigned-number</span> <span class="variable">plus-sign</span> <span class="variable">minus-sign</span> <span class="variable">group-separator</span> <span class="variable">decimal-point</span> <span class="variable">exponent-marker</span> <span class="variable">float-format</span> <span class="variable">significand-radix</span> <span class="variable">exponent-radix</span> <span class="variable">exponent-base</span>)</span></td>
 	<td class="category"><span class="category">Function</span></td>
        </tr>
       </tbody>
@@ -342,27 +343,27 @@ Keyword argument UNSIGNED-NUMBER is a generalized boolean.  True means
  numbers are permitted.  The default is false.
 Keyword argument PLUS-SIGN is a sequence of valid plus sign
  characters.  The plus sign is used to denote a positive number.
- The default is the value of the ‘*default-plus-sign*’ special
+ The default is the value of the ‘<a href="#kk5ncx2r"><span class="symbol">*default-plus-sign*</span></a>’ special
  variable.
 Keyword argument MINUS-SIGN is a sequence of valid minus sign
  characters.  The minus sign is used to denote a negative number.
- The default is the value of the ‘*default-minus-sign*’ special
+ The default is the value of the ‘<a href="#bpdr3zr8"><span class="symbol">*default-minus-sign*</span></a>’ special
  variable.
 Keyword argument GROUP-SEPARATOR is a sequence of valid group
  separator characters.  The group separator is used to separate the
  digits of a number into groups.  The default is the value of the
- ‘*default-group-separator*’ special variable.  The group separator
- of a number can not change, i.e. the first matching group separator
+ ‘<a href="#h2a4ij2e"><span class="symbol">*default-group-separator*</span></a>’ special variable.  The group separator
+ of a number cannot change, i.e. the first matching group separator
  fixes the group separator for the rest of the number.
 Keyword argument DECIMAL-POINT is a sequence of valid decimal point
  characters.  The decimal point is used to separate the integer part
  of the significand from its fractional part.  The default is the
- value of the ‘*default-decimal-point*’ special variable.
+ value of the ‘<a href="#kmiczee8"><span class="symbol">*default-decimal-point*</span></a>’ special variable.
 Keyword argument EXPONENT-MARKER is a sequence of valid exponent
  marker characters.  The exponent marker is used to separate the
  significand from the exponent.  It does not specify the data type
  of the return value.  The default is the value of the
- ‘*default-exponent-marker*’ special variable.
+ ‘<a href="#wdd5ur84"><span class="symbol">*default-exponent-marker*</span></a>’ special variable.
 Keyword argument FLOAT-FORMAT specifies the data type of the
  return value.  Value is either ‘short-float’, ‘single-float’,
  ‘double-float’, or ‘long-float’.  The default is the value of the
@@ -393,7 +394,7 @@ Converting a floating-point number to the specified FLOAT-FORMAT
 type may signal an ‘arithmetic-error’ condition, for example, a
 ‘floating-point-overflow’ or ‘floating-point-underflow’ error.
 
-The result if undefined if the sequences of valid plus and minus
+The result is undefined if the sequences of valid plus and minus
 sign characters intersect.</pre>
     </div>
    </div>
