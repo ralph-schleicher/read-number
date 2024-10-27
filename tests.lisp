@@ -232,6 +232,19 @@
   (assert-true (try #'read-float '("10_00._00_05" t nil nil :group-separator "_") 1000 :next-char #\_))
   (values))
 
+(define-test read-float-c99-hex
+  ;; C99 hexadecimal floating-point literals.
+  (let ((options '(:significand-radix 16 :exponent-marker "Pp" :exponent-base 2)))
+    (assert-true (try #'read-float `("1.8p1" t nil nil ,@options) 3))
+    #+(or ieee-floating-point (and clozure x86-host))
+    (progn
+      (assert-true (try #'read-float `("1.F44ABD5AA7CA4P+5" t nil nil :float-format double-float ,@options) 62.5364939768271845828D0))
+      (assert-true (try #'read-float `("1.fffffffffffffp1023" t nil nil :float-format double-float ,@options) most-positive-double-float))
+      (assert-true (try #'read-float `("1p-1074" t nil nil :float-format double-float ,@options) least-positive-double-float))
+      (assert-true (try #'read-float `("1.fffffep127" t nil nil :float-format single-float ,@options) most-positive-single-float))
+      (assert-true (try #'read-float `("1p-149" t nil nil :float-format single-float ,@options) least-positive-single-float)))
+    (values)))
+
 (defun main (&optional (tests :all))
   (let ((lisp-unit:*print-errors* t)
         (lisp-unit:*print-failures* t)
